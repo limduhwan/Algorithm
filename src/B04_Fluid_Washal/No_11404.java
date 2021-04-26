@@ -1,4 +1,4 @@
-package Fluid_Washal;
+package B04_Fluid_Washal;
 
 import java.io.*;
 import java.util.StringTokenizer;

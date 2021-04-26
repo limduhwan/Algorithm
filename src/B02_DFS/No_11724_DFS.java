@@ -1,8 +1,7 @@
-package DFS;
+package B02_DFS;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class No_11724_DFS {

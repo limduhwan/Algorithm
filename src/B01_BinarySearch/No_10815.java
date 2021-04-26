@@ -1,9 +1,10 @@
-package BinarySearch;
+package B01_BinarySearch;
 
 import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+//https://www.acmicpc.net/problem/10815
 public class No_10815 {
     static int n, m;
     static int arr[];
@@ -43,7 +44,7 @@ public class No_10815 {
 
     private static boolean binarySearch(int num) {
         int leftIndex = 0;
-        int rightIndex = n -1;
+        int rightIndex = n-1;
 
         while(leftIndex <= rightIndex) {
             int midIndex = (leftIndex + rightIndex) / 2;
