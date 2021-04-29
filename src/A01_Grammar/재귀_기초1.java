@@ -1,4 +1,4 @@
-package A01_Recursive;
+package A01_Grammar;
 
 //https://lktprogrammer.tistory.com/106
 public class 재귀_기초1 {
