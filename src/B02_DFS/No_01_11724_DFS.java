@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.StringTokenizer;
 
-public class No_11724_DFS {
+public class No_01_11724_DFS {
     static int N, M;
     static int graph[][];
     static int visited[];

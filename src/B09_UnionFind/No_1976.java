@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 //https://www.acmicpc.net/problem/1976
-//https://youngest-programming.tistory.com/428
+//https://steady-coding.tistory.com/109
 public class No_1976 {
 
     static int N, M;

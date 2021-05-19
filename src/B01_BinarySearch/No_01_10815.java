@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 //https://www.acmicpc.net/problem/10815
-public class No_10815 {
+public class No_01_10815 {
     static int n, m;
     static int arr[];
 
