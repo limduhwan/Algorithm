@@ -1,4 +1,4 @@
-package B08_Index_tree;
+package B03_Index_tree;
 
 import java.io.*;
 import java.util.StringTokenizer;
@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 //https://popuur.tistory.com/42
 //https://m.blog.naver.com/PostView.nhn?blogId=ndb796&logNo=221312822103&proxyReferer=https:%2F%2Fwww.google.com%2F
 //https://www.acmicpc.net/problem/2042
-public class No_2042 {
+public class No_01_2042_0 {
     static int N, M, K;
 
     public static void main(String[] args) throws IOException{
