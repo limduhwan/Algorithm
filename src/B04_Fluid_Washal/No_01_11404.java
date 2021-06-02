@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 //https://pangsblog.tistory.com/90
-public class No_11404 {
+public class No_01_11404 {
     static int cityCount;
     static int[][] distance;
     static final int INF = 1000000000;

@@ -1,4 +1,4 @@
-package B08_BFS;
+package B04_BFS;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 //https://www.acmicpc.net/problem/1260
 //https://m.blog.naver.com/lm040466/221787478911
-public class No_1260 {
+public class No_01_1260 {
 
     static int N,M,V;
     static int[][] graph;

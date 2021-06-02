@@ -23,12 +23,15 @@ public class No_02_2357 {
         while (s_idx < N) {
             s_idx *= 2;
         }
+
         minTree = new long[s_idx*2];
         Arrays.fill(minTree, Long.MAX_VALUE);
         maxTree = new long[s_idx*2];
+
         for (int i = 1; i <= N ; i++) {
             minTree[s_idx+i] = maxTree[s_idx+i] = Long.parseLong(br.readLine());
         }
+
         init(s_idx+1, N);
 
         for (int i = 0; i < M; i++) {
@@ -56,18 +59,6 @@ public class No_02_2357 {
         }
     }
 
-    private static long maxQuery(int start, int end) {
-        long result = 0;
-        while (start < end) {
-            if(start % 2 == 1) result = Math.max(result, maxTree[start]);
-            if(end % 2 == 0) result = Math.max(result, maxTree[end]);
-            start = (start+1)/2;
-            end = (end-1)/2;
-        }
-        if(start == end) result = Math.max(result, maxTree[start]);
-        return result;
-    }
-
     private static long minQuery(int start, int end) {
         long result = Long.MAX_VALUE;
         while (start < end) {
@@ -77,6 +68,18 @@ public class No_02_2357 {
             end = (end-1)/2;
         }
         if(start == end) result = Math.min(result, minTree[start]);
+        return result;
+    }
+
+    private static long maxQuery(int start, int end) {
+        long result = 0;
+        while (start < end) {
+            if(start % 2 == 1) result = Math.max(result, maxTree[start]);
+            if(end % 2 == 0) result = Math.max(result, maxTree[end]);
+            start = (start+1)/2;
+            end = (end-1)/2;
+        }
+        if(start == end) result = Math.max(result, maxTree[start]);
         return result;
     }
 }
