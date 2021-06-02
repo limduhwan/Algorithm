@@ -1,4 +1,4 @@
-package B05_Segment_Tree;
+package B10_Segment_Tree;
 
 import java.io.*;
 import java.util.StringTokenizer;

@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 
 //https://www.acmicpc.net/problem/2805
 //https://log-laboratory.tistory.com/68
+//나무 자르기
 public class No_02_2805 {
     static int N, M;
     static int[] arr;

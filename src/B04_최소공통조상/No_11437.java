@@ -1,4 +1,4 @@
-package B06_최소공통조상;
+package B04_최소공통조상;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 
 //https://www.acmicpc.net/problem/11437
 //https://iamheesoo.github.io/blog/algo-boj11437
+//LCA
 public class No_11437 {
     static int n;
     static ArrayList<ArrayList<Integer>> list;
