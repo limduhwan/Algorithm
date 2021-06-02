@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 //https://www.acmicpc.net/problem/11437
 //https://iamheesoo.github.io/blog/algo-boj11437
 //LCA
-public class No_11437 {
+public class No_02_11437 {
     static int n;
     static ArrayList<ArrayList<Integer>> list;
     static int[] depth, parent;
