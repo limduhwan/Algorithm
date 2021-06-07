@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 public class No_03_3584 {
     static int allTestCases, nodeCnt;
     static int[][] arr;
-    static int[] depth;
+    static int[] depth, parent;
     static boolean[] hasParent;
     static int root;
     static boolean[] checked;
@@ -25,46 +25,61 @@ public class No_03_3584 {
 //        System.out.println(st.nextToken());
 
         allTestCases = Integer.parseInt(br.readLine());
-        nodeCnt = Integer.parseInt(br.readLine());
+//        System.out.println(allTestCases +" " + nodeCnt);
 
-        System.out.println(allTestCases +" " + nodeCnt);
+        for(int k = 0; k<allTestCases; k++) {
+            nodeCnt = Integer.parseInt(br.readLine());
+            arr = new int[nodeCnt + 1][nodeCnt + 1];
+            depth = new int[nodeCnt + 1];
+            parent = new int[nodeCnt + 1];
+            hasParent = new boolean[nodeCnt + 1];
+            checked = new boolean[nodeCnt + 1];
 
-        arr = new int[nodeCnt+1][nodeCnt+1];
-        depth = new int[nodeCnt+1];
-        hasParent = new boolean[nodeCnt+1];
-        checked = new boolean[nodeCnt+1];
+        //        for(int j=0; j<nodeCnt; j++){
+        //            System.out.println(hasParent[j]);
+        //        }
+        //        마지막 것은 찾을 대상이니까 -1개만 담는다
+            for (int i = 0; i < nodeCnt - 1; i++) {
+                st = new StringTokenizer(br.readLine());
+                int a = Integer.parseInt(st.nextToken());
+                int b = Integer.parseInt(st.nextToken());
+        //            System.out.println(a+" "+b);
 
-//        for(int j=0; j<nodeCnt; j++){
-//            System.out.println(hasParent[j]);
-//        }
-//        마지막 것은 찾을 대상이니까 -1개만 담는다
-        for(int i=0; i<nodeCnt-1; i++){
+                arr[a][b] = arr[b][a] = 1;
+                hasParent[b] = true;
+            }
+
+            for (int i = 0; i <= nodeCnt; i++) {
+                if (i != 0 && hasParent[i] == false) {
+        //                System.out.println(i);
+                    root = i;
+                }
+            }
+
+        //        System.out.println("root "+ root);
+            dfs(root, 0);
+
+        //        for(int j=0; j<=nodeCnt; j++){
+        //           System.out.println(j+ "  "+ parent[j]);
+        //        }
+
+        //        for(int j=0; j<=nodeCnt; j++){
+        //            System.out.println(j+ "  "+ depth[j]);
+        //        }
+
+        //        System.out.println(depth[6]);
+
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-//            System.out.println(a+" "+b);
+        //        System.out.println(a +"   "+  b);
 
-            arr[a][b] = 1;
-            hasParent[b] = true;
+        //        여기부터 LCA
+            bw.write(lca(a, b) + "\n");
+        //        System.out.println(lca(a, b));
         }
-
-        for(int i=0; i<=nodeCnt; i++){
-            if(i != 0 && hasParent[i] == false){
-//                System.out.println(i);
-                root = i;
-            }
-        }
-
-        dfs(root, 0);
-
-//        System.out.println(depth[6]);
-
-        st = new StringTokenizer(br.readLine());
-        int a = Integer.parseInt(st.nextToken());
-        int b = Integer.parseInt(st.nextToken());
-        System.out.println(a +"   "+  b);
-
-//        여기부터 LCA
+        bw.close();
+        br.close();
     }
 
 //    호출될 때 마다 깊이가 하나씩 깊어짐
@@ -72,11 +87,29 @@ public class No_03_3584 {
         checked[start] = true;
         depth[start] = depthNum;
 
-        for(int i = 0; i<nodeCnt; i++){
+        for(int i = 0; i<=nodeCnt; i++){
             if(checked[i] ==  false && arr[start][i] == 1){
-                dfs(i, depthNum++);
+                dfs(i, depthNum+1);
+                parent[i] = start;
             }
         }
+    }
+
+    static int lca(int a, int b) {
+        while(depth[a] < depth[b]){
+            b = parent[b]; //끌어올림
+        }
+
+        while (depth[a] > depth[b]) {
+            a = parent[a]; //끌어올림
+        }
+
+        while(a!=b){
+            a = parent[a];
+            b = parent[b];
+        }
+
+        return a;
     }
 
 
