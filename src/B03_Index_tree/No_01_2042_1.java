@@ -3,6 +3,7 @@ package B03_Index_tree;
 import java.io.*;
 import java.util.StringTokenizer;
 
+//https://www.youtube.com/watch?v=fg2iGP4e2mc
 public class No_01_2042_1 {
     private static int N, M, K, leafCnt;
     private static long[] indexedTree;
