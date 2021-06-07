@@ -1,4 +1,4 @@
-package C01_위상정렬;
+package B06_위상정렬;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
