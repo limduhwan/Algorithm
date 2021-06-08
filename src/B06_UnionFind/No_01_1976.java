@@ -1,11 +1,11 @@
-package B08_UnionFind;
+package B06_UnionFind;
 
 import java.io.*;
 import java.util.StringTokenizer;
 
 //https://www.acmicpc.net/problem/1976
 //https://steady-coding.tistory.com/109
-public class No_1976 {
+public class No_01_1976 {
 
     static int N, M;
     static int[] parent;
