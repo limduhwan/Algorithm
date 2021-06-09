@@ -1,4 +1,4 @@
-package B08_Segment_Tree;
+package B09_Segment_Tree;
 
 import java.util.Arrays;
 
