@@ -1,4 +1,4 @@
-package B05_다익스트라;
+package B06_다익스트라;
 
 import java.io.*;
 import java.util.PriorityQueue;
