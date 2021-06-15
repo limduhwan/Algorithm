@@ -49,7 +49,7 @@ public class No_03_1238 {
             int end = Integer.parseInt(st.nextToken());
             int weight = Integer.parseInt(st.nextToken());
 
-al.add(st.nextToken(), new ArrayList<new Node(st.nextToken(),       st.nextToken())>());
+            al.add(start, new ArrayList<new Node(end, weight)>());
         }
 
     }
