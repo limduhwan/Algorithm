@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 //https://www.acmicpc.net/problem/2252
 //https://m.blog.naver.com/ndb796/221236874984
 //https://zoonvivor.tistory.com/95
-public class No_2252 {
+public class No_01_2252 {
     static int N, M;
     static int[] indegree;
     static ArrayList<Integer>[] list;
