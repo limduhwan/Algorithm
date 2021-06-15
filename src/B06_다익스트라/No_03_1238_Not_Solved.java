@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class No_03_1238 {
+//https://www.acmicpc.net/problem/1238
+//https://pangtrue.tistory.com/272
+public class No_03_1238_Not_Solved {
 
     static int N, M, X;
     static ArrayList<ArrayList<Node>> al;
