@@ -41,7 +41,7 @@ class Tree {
         return tree[node] = init(start, mid, node*2) + init(mid+1, end, node*2+1);
     }
     public int sum(int start, int end, int node, int left, int right) {
-        if(left>end || right < start) {
+        if(right < start || left > end) {
             return 0;
         }
         if(left <=start && end <=right) {
