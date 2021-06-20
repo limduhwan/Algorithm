@@ -1,13 +1,10 @@
-package B04_최소공통조상;
+package B01_최소공통조상;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.StringTokenizer;
 
 //https://www.acmicpc.net/problem/3584
 //https://velog.io/@pss407/%EB%B0%B1%EC%A4%803584-%EA%B0%80%EC%9E%A5-%EA%B0%80%EA%B9%8C%EC%9A%B4-%EA%B3%B5%ED%86%B5-%EC%A1%B0%EC%83%81

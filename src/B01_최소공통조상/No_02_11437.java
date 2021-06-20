@@ -1,4 +1,4 @@
-package B04_최소공통조상;
+package B01_최소공통조상;
 
 import java.io.*;
 import java.util.ArrayList;

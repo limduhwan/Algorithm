@@ -1,4 +1,4 @@
-package B01_BinarySearch;
+package B08_BinarySearch;
 
 import java.io.*;
 import java.util.Arrays;
