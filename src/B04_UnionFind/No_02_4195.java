@@ -1,7 +1,6 @@
-package B05_UnionFind;
+package B04_UnionFind;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.StringTokenizer;

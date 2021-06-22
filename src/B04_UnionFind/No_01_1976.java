@@ -1,4 +1,4 @@
-package B05_UnionFind;
+package B04_UnionFind;
 
 import java.io.*;
 import java.util.StringTokenizer;

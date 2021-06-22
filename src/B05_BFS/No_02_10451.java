@@ -1,4 +1,4 @@
-package B04_BFS;
+package B05_BFS;
 
 import java.io.*;
 import java.util.LinkedList;
