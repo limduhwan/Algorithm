@@ -3,7 +3,7 @@ package B01_최소공통조상;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class No_05_11438 {
+public class No_05_11438_Not_Solved {
 
     static int N, Q;
     static int[] parent, depth;

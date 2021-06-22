@@ -1,4 +1,4 @@
-package B02_DFS;
+package B07_DFS;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

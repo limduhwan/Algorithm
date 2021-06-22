@@ -1,4 +1,4 @@
-package B07_위상정렬;
+package B02_위상정렬;
 
 import java.io.*;
 import java.util.ArrayList;
