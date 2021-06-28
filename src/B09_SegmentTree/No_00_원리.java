@@ -1,4 +1,4 @@
-package B09_Segment_Tree;
+package B09_SegmentTree;
 //https://hyeonseong.tistory.com/3
 //1  2  3  4  5  6
 import java.util.*;
@@ -40,17 +40,7 @@ class Tree {
         int mid = (start+end)/2;
         return tree[node] = init(start, mid, node*2) + init(mid+1, end, node*2+1);
     }
-    public int sum(int start, int end, int node, int left, int right) {
-        if(right < start || left > end) {
-            return 0;
-        }
-        if(left <=start && end <=right) {
-            return tree[node];
-        }
-        /* 필요한 구간마다 밑에서부터 구간합을 가지고 올라온다 */
-        int mid = (start+end)/2;
-        return sum(start, mid, node*2, left, right) + sum(mid+1, end, node*2+1, left, right);
-    }
+
     public void update(int start, int end, int node, int index, int dif) {
         if(index < start || index > end) {
             return;
@@ -64,6 +54,19 @@ class Tree {
         update(start, mid, node*2, index, dif);
         update(mid+1, end, node*2+1, index, dif);
     }
+
+    public int sum(int start, int end, int node, int left, int right) {
+        if(right < start || left > end) {
+            return 0;
+        }
+        if(left <=start && end <=right) {
+            return tree[node];
+        }
+        /* 필요한 구간마다 밑에서부터 구간합을 가지고 올라온다 */
+        int mid = (start+end)/2;
+        return sum(start, mid, node*2, left, right) + sum(mid+1, end, node*2+1, left, right);
+    }
+
     public void print() {
         for(int i=1;i<this.tree.length;i++) {
             System.out.print(i + "번째 인덱스 : " + this.tree[i]);
