@@ -27,14 +27,27 @@ public class No_02_2357 {
 
         for(int i = 1; i<=N; i++){
             input[i]  = Integer.parseInt(br.readLine());
+            update(1, 1, N, i, input[i]);
         }
 
+        init(input, 1, 1, N);
 
+        for(int i = 0; i<M; i++){
+            st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+
+            long max = query(1, 1, N, a, b);
+            long min = queryMin(1, 1, N, a, b);
+            bw.write(min+" "+max+"\n");
+        }
+        bw.flush();
     }
 
     static void init(long[] arr, int node, int start, int end){
         if(start == end) {
             segTreeMin[node] = segTree[node] = arr[start];
+            return;
         }
 
         int mid = (start+end)/2;
@@ -44,5 +57,51 @@ public class No_02_2357 {
         segTreeMin[node] = Math.min(segTreeMin[node*2], segTreeMin[node*2+1]);
     }
 
+    static void update(int node, int start, int end, int index, long diff){
+        if(index < start || index > end){
+            return;
+        }
+
+        if(start == end){
+            segTreeMin[node] = segTree[node] = diff;
+            return;
+        }
+
+        int mid = (start+end) / 2;
+
+        update(node*2, start, mid, index, diff);
+        update(node*2+1, mid+1, end, index, diff);
+
+        segTree[node] = Math.max(segTree[node*2], segTree[node*2+1] );
+        segTreeMin[node] = Math.min(segTreeMin[node*2+1], segTreeMin[node*2+1] );
+    }
+
+    static long query(int node, int start, int end, int left, int right){
+        if(right < start || left > end) {
+            return 0;
+        }
+
+        if(left <= start && end <= right){
+            return segTree[node];
+        }
+
+        int mid = (start + end) /2;
+
+        return Math.max(query(node*2, start, mid, left, right), query(node*2+1, mid+1, end, left, right));
+    }
+
+    static long queryMin(int node, int start, int end, int left, int right){
+        if(right < start || left > end){
+            return Integer.MAX_VALUE;
+        }
+
+        if(left <= start && end <= right){
+            return segTreeMin[node];
+        }
+
+        int mid = (start+end) / 2;
+
+        return Math.min(queryMin(node*2, start, mid, left, right), queryMin(node*2+1, mid+1, end, left, right));
+    }
 
 }
