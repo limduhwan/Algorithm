@@ -3,7 +3,11 @@ package B09_SegmentTree;
 //1  2  3  4  5  6
 import java.util.*;
 public class No_00_원리{
+    static int[] arr = {1, 2, 3, 4, 5, 6};
+    static int[] tree;
     public static void main(String[] args) {
+
+        tree = new int[arr.length*4];
         Tree st = new Tree();
         st.init(0, st.arr.length-1,1);
 
