@@ -85,7 +85,7 @@ public class No_05_11438_Internet {
 
         for(int i = 0; i<al.size(); i++){
             int a = al.get(i);
-            if(depth[a] ==0){
+            if(depth[a] == 0){
                 dfs(a, cnt+1);
                 parent[a][0] = node;
             }
@@ -116,6 +116,7 @@ public class No_05_11438_Internet {
 
         if(a==b) return a;
 
+        //밑에서부터 올라오기
         for(int i = K-1; i>=0; i--){
             if(parent[a][i] != parent[b][i]){
                 a = parent[a][i];

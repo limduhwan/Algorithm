@@ -9,13 +9,13 @@ public class No_00_원리_1{
     static int[] tree;
     public static void main(String[] args) {
 
-        System.out.println((1+2)/2);
+//        System.out.println((1+2)/2);
         tree = new int[arr.length*4];
         init(1, 0, arr.length-1);
 //
-//        for(int i=0;i<tree.length;i++) {
-//            System.out.println(tree[i]);
-//        }
+        for(int i=0;i<tree.length;i++) {
+            System.out.println(tree[i]);
+        }
 
         Scanner scan = new Scanner(System.in);
 //

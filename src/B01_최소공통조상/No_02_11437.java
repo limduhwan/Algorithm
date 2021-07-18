@@ -34,8 +34,8 @@ public class No_02_11437 {
             list.get(b).add(a);
         }
 
-        depth = new int[n+1]; // 왜 n+1이지????
-        parent = new int[n+1]; // 왜 n+1이지????로
+        depth = new int[n+1];
+        parent = new int[n+1];
         dfs(1,1);
 
         st = new StringTokenizer(br.readLine());
