@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 //https://www.acmicpc.net/problem/1967
 //https://lmcoa15.tistory.com/56
-public class N0_01_1967 {
+public class No_01_1967 {
 
     static int N, weight_, maxNode, maxWeight;
     static boolean[] checked;

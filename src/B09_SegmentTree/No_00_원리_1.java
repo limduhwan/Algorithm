@@ -4,6 +4,8 @@ package B09_SegmentTree;
 
 import java.util.Scanner;
 
+//https://www.youtube.com/watch?v=075fcq7oCC8
+//https://www.youtube.com/watch?v=ahFB9eCnI6c
 public class No_00_원리_1{
     static int[] arr = {1,2,3};
     static int[] tree;

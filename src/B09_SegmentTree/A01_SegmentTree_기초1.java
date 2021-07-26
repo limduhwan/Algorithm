@@ -3,6 +3,8 @@ package B09_SegmentTree;
 import java.util.Arrays;
 
 //https://stack07142.tistory.com/216
+//https://www.youtube.com/watch?v=075fcq7oCC8
+//https://www.youtube.com/watch?v=ahFB9eCnI6c
 public class A01_SegmentTree_기초1 {
 
     public static void main(String[] args) throws Exception {

@@ -6,18 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-//https://www.acmicpc.net/problem/11438
-//https://blog.naver.com/kks227/220820773477
-//트리에서 너무 지나칠 정도로 최단경로를 빨리 찾기를 원한다면 LCA를 먼저 생각해 봐야 합니다.
-//https://velog.io/@imfksh/%EB%B0%B1%EC%A4%80-11438-Java
-//https://www.crocus.co.kr/660
-//https://blog.naver.com/kks227/220793361738
-// 작은 j부터 배열을 채워가면서 전체 배열을 채울 수 있다.
-// i에서 2^(j+1)번 이동한 후의 정점은 i에서 2^j번*2번 이동하는 것
-//    for(int j = 1; j < MAX_D; ++j)
-//        for(int i = 1; i <= M; ++i)
-//        next[i][j] = next[ next[i][j-1] ][j-1];
-//https://pangtrue.tistory.com/262
+//https://www.youtube.com/watch?v=GTYSPwz5ByU
 public class No_05_11438_Internet {
     static int N, K, M;
     static ArrayList<ArrayList<Integer>> tree;
@@ -96,7 +85,7 @@ public class No_05_11438_Internet {
         for(int i = 1; i<K; i++){
             for(int j = 1; j<=N; j++){
 //                부모의 부모값을 저장해 둔다.
-                parent[j][i] = parent[ parent[j][i-1] ][i-1];
+                parent[j][i] = parent[ parent[j][i-1]][i-1];
             }
         }
     }
