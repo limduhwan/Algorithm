@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 //https://www.youtube.com/watch?v=075fcq7oCC8
 //https://www.youtube.com/watch?v=ahFB9eCnI6c
 //https://steady-coding.tistory.com/127
-public class No_07_10868_세그먼트트리_교본 {
+public class No_07_10868_세그먼트트리_시작 {
     static int N, M;
     static int[] arr, minTree;
 
