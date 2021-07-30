@@ -8,7 +8,7 @@ import java.io.IOException;
 //https://www.youtube.com/watch?v=ctkuGoJPmAE
 //https://do-rang.tistory.com/61
 //https://www.acmicpc.net/problem/2751
-public class No_01_2751_MergeSort {
+public class No_MergeSort_01_2751 {
     static int result[];
 
     public static void main(String args[]) throws IOException{
