@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 
 // LCA : 최저 공통 조상
 public class No_05_11438_Ontact {
-
     private static final int LGN = 17; // 2^16 (65,536) < N = 100,000 < 2^17 (131,072)
     //    static final int LGN = 5; // 2^4 (16) < N = 18 < 2^5 (32)
     private static int[][] parent;

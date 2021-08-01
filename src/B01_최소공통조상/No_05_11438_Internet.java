@@ -85,7 +85,7 @@ public class No_05_11438_Internet {
         for(int i = 1; i<K; i++){
             for(int j = 1; j<=N; j++){
 //                부모의 부모값을 저장해 둔다.
-                parent[j][i] = parent[ parent[j][i-1]][i-1];
+                parent[j][i] = parent[parent[j][i-1]][i-1];
             }
         }
     }
