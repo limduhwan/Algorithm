@@ -43,5 +43,9 @@ public class No_03_Sorting {
         System.out.println(Arrays.toString(myIntegers));
     }
 
+    //CompareTo에서 비교할 때
+    //아래처럼 해야 안터진다.
+//    Int.compare(this.weight - o.weight);
+//    Long.compare(this.weight - o.weight);
 
 }
