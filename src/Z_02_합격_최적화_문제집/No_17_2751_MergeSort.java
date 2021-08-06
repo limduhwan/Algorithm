@@ -47,6 +47,7 @@ public class No_17_2751_MergeSort {
         int r = mid+1;   // 쪼개진 두 번째 배열의 첫 인덱스
         int k = start;    // 새로 삽입될 배열의 첫 인덱스
 
+//        l, r을 기준으로 생각한다.
         while(l <= mid || r <= end) {    // 쪼개진 두 배열의 원소를 비교해가면서 새로운 배열에다가 삽입한다.
             if(l<=mid && r<=end) {    // 두 배열 모두 비교가 필요한 원소가 남아있다면
                 if(arr[l]<=arr[r]){

@@ -38,11 +38,7 @@ public class No_05_11438_Internet {
 
         int tmp = 1;
         K = 0;
-
-        while(tmp <= N){
-            tmp <<= 1;
-            K++;
-        }
+ 
 
 //        System.out.println(K);
 
