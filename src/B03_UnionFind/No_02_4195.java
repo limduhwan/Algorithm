@@ -1,4 +1,4 @@
-package B04_UnionFind;
+package B03_UnionFind;
 
 import java.io.*;
 import java.util.Arrays;

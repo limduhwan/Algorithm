@@ -1,4 +1,4 @@
-package B03_Index_tree;
+package B13_Index_tree;
 
 import java.io.*;
 import java.util.StringTokenizer;
