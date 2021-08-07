@@ -77,7 +77,9 @@ public class No_24_1753_다익스트라 {
         }
 
         public int compareTo(Node o){
-            return this.weight - o.weight;
+
+//            return this.weight - o.weight;
+            return Integer.compare(this.weight, o.weight);
         }
     }
 
