@@ -1,9 +1,7 @@
-package B01_최소공통조상;
+package B01_LCA;
 
 import java.io.*;
-import java.nio.Buffer;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 //https://www.youtube.com/watch?v=GTYSPwz5ByU

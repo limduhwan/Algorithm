@@ -1,12 +1,10 @@
-package B01_최소공통조상;
+package B01_LCA;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.InputStreamReader;
-        import java.util.ArrayDeque;
+import java.util.ArrayDeque;
         import java.util.ArrayList;
-        import java.util.Queue;
-        import java.util.StringTokenizer;
+import java.util.StringTokenizer;
 
 // LCA : 최저 공통 조상
 public class No_05_11438_Ontact {
