@@ -21,14 +21,37 @@ import java.util.StringTokenizer;
 //출력
 //첫째 줄에 n번째 피보나치 수를 출력한다.
 
+//https://st-lab.tistory.com/123
 //https://www.acmicpc.net/problem/2748
 public class No_03_2748 {
+
+    static long[] arr;
 
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new FileReader("No_2748.txt"));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
 
+        int N = Integer.parseInt(br.readLine());
 
+        arr = new long[N+1];
+
+        for(int i=0; i<=N; i++){
+            arr[i] = -1;
+        }
+
+        arr[0] = 0;
+        arr[1] = 1;
+
+        System.out.println(Fib(N));
+
+    }
+
+    static long Fib(int N){
+        if(arr[N] == -1){
+            arr[N] = Fib(N-1) + Fib(N-2);
+        }
+
+        return arr[N];
     }
 }
