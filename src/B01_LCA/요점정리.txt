@@ -9,3 +9,13 @@ while (temp <=N ) {
     K++;
 }
 
+Kdf l
+//1. K구하기
+//2. dfs
+//3. fillparent
+
+//4. lca
+
+
+temp<<=1;
+ if(depth[y] - depth[x] >= (1<<i)){

@@ -1,4 +1,4 @@
-package Z_02_합격_최적화_문제집;
+package B01_LCA;
 
 //문제
 //N(2 ≤ N ≤ 100,000)개의 정점으로 이루어진 트리가 주어진다.
@@ -22,7 +22,7 @@ import java.util.StringTokenizer;
 
 //https://subbak2.tistory.com/60
 //https://www.acmicpc.net/problem/11438
-public class No_41_11438_LCA {
+public class No_05_11438_LCA_기본 {
     static int N, M, K;
     static ArrayList<Integer>[] tree;
     static boolean[] checked;
