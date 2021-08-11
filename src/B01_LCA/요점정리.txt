@@ -1,3 +1,11 @@
 [6일차] [SW검정] Professional 중급 과정 (4/8) 25:45
 [6일차] [SW검정] Professional 중급 과정 (5/8) 12:59
 https://www.acmicpc.net/problemset?sort=ac_desc&algo=41
+
+int temp = 1;
+K = 0;
+while (temp <=N ) {
+    temp<<=1;
+    K++;
+}
+
