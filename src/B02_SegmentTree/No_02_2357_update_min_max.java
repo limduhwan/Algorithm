@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 //최소값과 최대값
-public class No_02_2357 {
+public class No_02_2357_update_min_max {
 
     static long[] segTree;
     static long[] segTreeMin;
