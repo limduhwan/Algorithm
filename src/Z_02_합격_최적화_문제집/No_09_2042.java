@@ -42,14 +42,11 @@ public class No_09_2042 {
             if(a == 1){
                 long diff =  c - tree[b];
                 tree[b] = c;
-                updateSegTree(1, 1,  N,  b,  diff);
+                updateSegTree(1, 1,  N,  b,  c);
             } else if(a==2){
                 System.out.println(sumSegTree(1, 1, N, b, (int) c));
             }
         }
-
-
-
     }
 
     static long initSegTree(int node, int start, int end){
@@ -62,20 +59,34 @@ public class No_09_2042 {
         return segTree[node] = initSegTree(node*2, start, mid) + initSegTree(node*2+1, mid+1, end);
     }
 
-    static void updateSegTree(int node, int start, int end, int index, long diff){
-        if( index < start || end < index) {
-            return;
+    static long updateSegTree(int node, int start, int end, int index, long c){
+        if(index < start || index > end){
+            return segTree[node];
         }
 
-        segTree[node] = segTree[node] + diff;
         if(start == end){
-            return;
+            return segTree[node] = c;
         }
 
-        int mid = (start+end)/2;
-        updateSegTree(node*2, start, mid, index, diff);
-        updateSegTree(node*2+1, mid+1, end, index, diff);
+        int mid = (start+end) / 2;
+
+        return segTree[node] = updateSegTree(node*2, start, mid, index, c) + updateSegTree(node*2+1, mid+1, end, index, c);
     }
+
+//    static void updateSegTree(int node, int start, int end, int index, long diff){
+//        if( index < start || end < index) {
+//            return;
+//        }
+//
+//        segTree[node] = segTree[node] + diff;
+//        if(start == end){
+//            return;
+//        }
+//
+//        int mid = (start+end)/2;
+//        updateSegTree(node*2, start, mid, index, diff);
+//        updateSegTree(node*2+1, mid+1, end, index, diff);
+//    }
 
     static long sumSegTree(int node, int start, int end, int left, int right){
         if( right < start || end < left){

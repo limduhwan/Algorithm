@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 
 //K번째 수 찾기 어렵다...
 //https://blog.udanax.org/2016/04/7469-k.html
-public class No_11_7469_MergeSortTree_Internet {
+public class No_15_7469_MergeSortTree_Internet {
     static int[][] data;
     static int[][] temp;
     static int N, K;
