@@ -1,7 +1,7 @@
-package A02_Basic;
+package B00_재귀;
 
 //https://lktprogrammer.tistory.com/106
-public class 재귀_기초1 {
+public class No_00_재귀_기초1 {
 
     public static int Function(int num){
         if(num == 1){

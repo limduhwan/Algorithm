@@ -53,7 +53,7 @@ public class No_01_10868_기본 {
 
     static int minInit(int node, int start, int end){
         if(start == end){
-            return minTree[node] = arr[start];
+            minTree[node] = arr[start];
         }
 
         int mid = (start+end) / 2;
