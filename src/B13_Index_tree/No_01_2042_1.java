@@ -66,7 +66,8 @@ public class No_01_2042_1 {
         val -= indexedTree[idx];
         while (idx != 0) {
             indexedTree[idx] += val;
-            idx /= 2;
+//            idx /= 2;
+            idx = idx/2;
             //비트 연산 : idx >>= 1
         }
     }
@@ -74,15 +75,21 @@ public class No_01_2042_1 {
         long result = 0;
         while (start < end) {
             //start가 홀수 : right 노드
-            if(start % 2 == 1) result += indexedTree[start];
+            if(start % 2 == 1) {
+                result += indexedTree[start];
+            }
             //end가 짝수 : left 노드
-            if(end % 2 == 0) result += indexedTree[end];
+            if(end % 2 == 0) {
+                result += indexedTree[end];
+            }
             //상위 노드로 이동
             start = (start + 1) / 2;
             end = (end - 1) / 2;
             //비트 연산 사용하려면 : start = (start + 1) >> 1;
         }
-        if(start == end) result += indexedTree[start];
+        if(start == end){
+            result += indexedTree[start];
+        }
         return result;
     }
 }
