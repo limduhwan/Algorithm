@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 //https://www.acmicpc.net/problem/1976
 //https://steady-coding.tistory.com/109
 //https://steady-coding.tistory.com/111
-public class No_01_1976 {
+public class 기본_No_01_1976 {
 
     static int N, M;
     static int[] parent;

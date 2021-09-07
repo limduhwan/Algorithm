@@ -83,7 +83,9 @@ public class No_02_4485 {
 
         @Override
         public int compareTo(Point o){
-            return this.cost - o.cost;
+//            return  this.cost - o.cost;
+//            *반드시 요렇게 비교
+            return Integer.compare(this.cost, o.cost);
         }
     }
 
