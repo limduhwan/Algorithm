@@ -1,0 +1,21 @@
+백준 문제집
+https://www.acmicpc.net/workbook/view/822
+
+https://hyeonseong.tistory.com/3
+https://www.acmicpc.net/problemset?sort=ac_desc&algo=65
+
+업데이트는 이렇게
+static long update(int node, int start, int end, int index, int c){
+    if(index < start || end < index){
+        return tree[node];
+    }
+
+    if(start == end){
+        return tree[node] = c;
+    }
+
+    int mid = (start+end) /2;
+    return tree[node] = update(node*2, start, mid, index, c)
+                       *update(node*2+1, mid+1, end, index, c)%d;
+
+}

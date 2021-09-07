@@ -1,0 +1,6 @@
+https://www.acmicpc.net/workbook/view/900
+
+
+parent[] 배열을 초기화 해줍니다.
+find(), union(), isSameParent() 메소드를 만들어 줍니다.
+여기서 isSameParent()는 임의의 이름으로 만든 함수명입니다. find(), union() 메소드의 작동 원리만 파악하셔도 충분히 푸실 수 있는 문제입니다.
