@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 
 //https://platform.samsungcic.com/#/connect/LCB20210329100061572
 //(1/6) 48분
-public class 문제풀이_Day01_01번_89_위대한항로_00_다익스트라_못품 {
+public class 문제풀이_Day01_01번_위대한항로_00_다익스트라_못품 {
     static int TC, N, M, K;
     static ArrayList<Node>[] al;
     static int[] friend, dist;

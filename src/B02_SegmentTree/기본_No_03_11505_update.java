@@ -25,7 +25,7 @@ import java.io.*;
 import java.util.StringTokenizer;
 
 //https://wellbell.tistory.com/57
-public class No_03_11505_update_기본 {
+public class 기본_No_03_11505_update {
     static int N, K, M;
     static int[] arr;
     static long[] tree;
