@@ -16,5 +16,23 @@ public class No_04_최대공약수 {
         }
 
         System.out.println("최대공약수: " + b);
+        System.out.println("최대공약수: " + GCD(a, b));
+    }
+
+    static int GCD(int a, int b){
+        if(a<b){
+            int temp = b;
+            b = a;
+            a = temp;
+        }
+
+        if(b==0) return a;
+
+        while(true){
+            int r = a%b;
+            if(r==0) return b;
+            a = b;
+            b = r;
+        }
     }
 }

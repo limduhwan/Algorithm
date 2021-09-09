@@ -22,7 +22,7 @@ import java.util.StringTokenizer;
 
 //https://subbak2.tistory.com/60
 //https://www.acmicpc.net/problem/11438
-public class No_05_11438_LCA_기본 {
+public class 기본_No_05_11438_LCA {
     static int N, M, K;
     static ArrayList<Integer>[] tree;
     static boolean[] checked;
