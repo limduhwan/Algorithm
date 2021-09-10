@@ -44,7 +44,7 @@ public class 문제풀이_Day02_01번_알고리즘경진대회_01_세그먼트�
                 int min = Math.max(i-G, 0);
                 int max = Math.min(i+G, N);
 
-                int GCD = query(min, max, 1, 1, N);
+                int GCD = query(1, min, max, 1, N);
 
                 long sum = (sumArr[max+1]-sumArr[min]);
 
@@ -73,7 +73,7 @@ public class 문제풀이_Day02_01번_알고리즘경진대회_01_세그먼트�
         }
     }
 
-    static int query(int start, int end, int node, int left, int right){
+    static int query(int node, int start, int end, int left, int right){
         if(start>right || end < left){
             return 0;
         }
@@ -83,7 +83,7 @@ public class 문제풀이_Day02_01번_알고리즘경진대회_01_세그먼트�
         }
 
         int mid = (left+right)/2;
-        return GCD(query(start, end, node*2, left, mid), query(start, end, node*2+1, mid+1, right));
+        return GCD(query(node*2, start, end, left, mid), query(node*2+1, start, end,mid+1, right));
     }
 
     static int initGCD(int node, int start, int end){
