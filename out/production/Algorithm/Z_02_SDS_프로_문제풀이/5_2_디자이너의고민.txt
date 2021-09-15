@@ -1,0 +1,190 @@
+
+import java.io.BufferedReader;
+
+import java.io.BufferedWriter;
+
+import java.io.InputStreamReader;
+
+import java.io.OutputStreamWriter;
+
+import java.util.StringTokenizer;
+
+  
+
+/*
+
+김희성 프로(SW역량강화TF)
+
+알고리즘 유형 : DP
+
+  
+
+풀이
+
+전체 경우의 수에서
+
+조각1 안 붙인 경우의 수, 조각2 안 붙인 경우의 수를 빼준다.
+
+이 때 조각1,2 두개 다 안 붙인 경우의 수가 2번 빠지게되니
+
+두개 다 안 붙인 경우의 수를 추가로 구해서 한 번 더해주면 답이 된다.
+
+  
+
+죠르디는 사랑입니다♥
+
+ */
+
+public class Solution {
+
+  
+
+    private static final int MOD = 1000000007;
+
+  
+
+    public static void main(String[] args) throws Exception {
+
+//        System.setIn(new FileInputStream("sample_input.txt"));
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+  
+
+        int T = Integer.parseInt(st.nextToken());
+
+  
+
+        for (int tc = 1; tc <= T; tc++) {
+
+            st = new StringTokenizer(br.readLine());
+
+            int N = Integer.parseInt(st.nextToken()); // 가로폭의 크기
+
+            int K = Integer.parseInt(st.nextToken()); // 조각 종류의 개수
+
+  
+
+            int[] tiles = new int[K + 1];
+
+            long[] DP = new long[N + 1];
+
+            long[] DP1 = new long[N + 1];
+
+            long[] DP2 = new long[N + 1];
+
+            long[] DP3 = new long[N + 1];
+
+  
+
+            st = new StringTokenizer(br.readLine());
+
+            for (int i = 1; i <= K; i++) {
+
+                tiles[i] = Integer.parseInt(st.nextToken());
+
+            }
+
+  
+
+            st = new StringTokenizer(br.readLine());
+
+            int inc1 = Integer.parseInt(st.nextToken());
+
+            int inc2 = Integer.parseInt(st.nextToken());
+
+  
+
+            DP3[0] = DP2[0] = DP1[0] = DP[0] = 1;
+
+  
+
+            for (int n = 1; n <= N; n++) {
+
+                for (int k = 1; k <= K; k++) {
+
+                    int l = tiles[k];
+
+                    // 해당 조각을 붙여도 n 이 넘지 않을 때만
+
+                    if(n >= l) {
+
+                        // n 이 되는 전체 경우의 수 구하기
+
+                        // (n - 현재 타일의 길이) 에서 현재 타일을 붙이면 n 이 됨
+
+                        DP[n] += DP[n - l];
+
+                        DP[n] %= MOD;
+
+                        // 1을 안 붙인거
+
+                        if (inc1 != k) {
+
+                            DP1[n] += DP1[n - l];
+
+                            DP1[n] %= MOD;
+
+                        }
+
+                        // 2를 안 붙인거
+
+                        if (inc2 != k) {
+
+                            DP2[n] += DP2[n - l];
+
+                            DP2[n] %= MOD;
+
+                        }
+
+                        // 둘다 안 붙인거
+
+                        if (inc1 != k && inc2 != k) {
+
+                            DP3[n] += DP3[n - l];
+
+                            DP3[n] %= MOD;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+  
+
+            // 전체 경우의 수에서 1, 2 안 붙인거를 빼주고
+
+            // 이 때 1, 2 둘다 안 붙인게 한 번 씩, 총 두 번 빠지니까
+
+            // 둘다 안 붙인거 한 번 더해주면 답
+
+            long result = (DP[N] - DP1[N] - DP2[N] + DP3[N]) % MOD;
+
+            // DP[N] 이 MOD 로 나눈 나머지이다 보니 위 값이 음수가 나올 수 있음
+
+            // 음수일 경우 MOD 를 더해준다
+
+            if (result < 0)
+
+                result += MOD;
+
+  
+
+            bw.write("#" + tc + " " + result + "\n");
+
+            bw.flush();
+
+        }
+
+    }
+
+  
+
+}

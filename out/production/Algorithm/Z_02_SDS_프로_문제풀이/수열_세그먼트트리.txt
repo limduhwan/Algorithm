@@ -1,0 +1,292 @@
+
+import java.io.*;
+
+import java.util.Arrays;
+
+import java.util.HashMap;
+
+import java.util.StringTokenizer;
+
+ 
+
+/*
+
+중요!!! : 주석 삭제 금지 / 동일 코드 SW검정 사이트 제출 금지
+
+ 
+
+김희성 프로(SW역량강화TF)
+
+알고리즘 유형 : 구간트리 (인덱스 트리 or 세그먼트 트리) + HashMap
+
+ 
+
+풀이
+
+1. 수열의 값 기준으로 구간의 최대, 최소 값 구간트리(인덱스, 세그먼트)를 만든다.
+
+2. HashMap 에 수열의 값들을 넣는다. (수열의 값, 값의 위치) 를 쌍으로 저장
+
+3. idx 기준 0 -> N 까지 반복문을 돌면서 HashMap 에 + K 인 수가 있는지 찾는다.
+
+4. (3번에서 없으면 스킵)
+
+   있으면, 현재 idx ~ 해쉬맵에서 꺼낸 + K 수가 있는 idx 사이에 min, max 를 구한다.
+
+   min, max 가 현재 idx 의 값과 동일하면 length 의 최소값과 그 때 경우의 수를 구함
+
+ 
+
+죠르디는 사랑입니다♥
+
+ */
+
+public class 기출_210326_수열_세그먼트트리 {
+
+ 
+
+    private static int[] segTree; // 세그먼트 트리 데이터 저장
+
+    private static int[] segTreeMin; // 세그먼트 트리 데이터 저장
+
+ 
+
+    public static void main(String[] args) throws IOException {
+
+//        System.setIn(new FileInputStream("sample/수열.txt"));
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        StringTokenizer st;
+
+        int T = Integer.parseInt(br.readLine());
+
+ 
+
+        for (int tc = 1; tc <= T; tc++) {
+
+            st = new StringTokenizer(br.readLine());
+
+            int N = Integer.parseInt(st.nextToken());
+
+            int K = Integer.parseInt(st.nextToken()); // 최소값의 차이
+
+ 
+
+            // 세그먼트 트리 초기화
+
+            segTree = new int[N * 4];
+
+            segTreeMin = new int[N * 4];
+
+            Arrays.fill(segTreeMin, Integer.MAX_VALUE);
+
+ 
+
+            // 입력 값 받을 배열
+
+            int[] nums = new int[N];
+
+ 
+
+            HashMap<Integer, Integer> map = new HashMap<>();
+
+ 
+
+            st = new StringTokenizer(br.readLine());
+
+            for (int i = 0; i < N; i++) {
+
+                nums[i] = Integer.parseInt(st.nextToken());
+
+                map.put(nums[i], i);
+
+            }
+
+ 
+
+            // 세그먼트 트리 구간 최대, 최소값 init
+
+            init(nums, 1, 0, N - 1);
+
+ 
+
+            int length = 100001; // N 이 10만이기 때문에 길이의 최대값은 100,001 을 넘을 수 없다.
+
+            int cnt = 0; // 경우의 수
+
+ 
+
+            for (int i = 0; i < N; i++) {
+
+                // [현재 숫자] + K 인 수가 map 에 있는지 확인
+
+                if (map.containsKey(nums[i] + K)) {
+
+                    int start = i;
+
+                    int end = map.get(nums[i] + K);
+
+ 
+
+                    // 트리에서 탐색을 위해 index 가 start < end 가 되도록 swap
+
+                    if (start > end) {
+
+                        int temp = start;
+
+                        start = end;
+
+                        end = temp;
+
+                    }
+
+ 
+
+                    // start < end 구간의 max 값과 min 값 쿼리
+
+                    int max = query(1, 0, N - 1, start, end);
+
+                    int min = queryMin(1, 0, N - 1, start, end);
+
+ 
+
+                    // 구간의 max 값과 [현재 숫자] + K 가 같고,
+
+                    // 구간의 min 값과 [현재 숫자] 가 같은지 확인
+
+                    if (max == nums[i] + K && min == nums[i]) {
+
+                        int len = end - start + 1;
+
+                        // 더 짧은 구간을 발견하면 갱신하고, 경우의 수를 1로 초기화
+
+                        if (length > len) {
+
+                            length = len;
+
+                            cnt = 1;
+
+                        }
+
+                        // 같으면 경우의 수 1개씩 증가
+
+                        else if (length == len) {
+
+                            cnt++;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+ 
+
+            if (cnt == 0) // 불가능한 경우
+
+                bw.write("#" + tc + " " + -1 + "\n");
+
+            else
+
+                bw.write("#" + tc + " " + length + " " + cnt + "\n");
+
+ 
+
+            bw.flush();
+
+ 
+
+        }
+
+    }
+
+ 
+
+    // 세그먼트 트리
+
+    private static void init(int[] arr, int node, int start, int end) {
+
+        if (start == end) {
+
+            segTreeMin[node] = segTree[node] = arr[start]; // leaf node
+
+            return;
+
+        }
+
+ 
+
+        int mid = (start + end) / 2;
+
+ 
+
+        init(arr, node * 2, start, mid);
+
+        init(arr, node * 2 + 1, mid + 1, end);
+
+        segTree[node] = Math.max(segTree[node * 2], segTree[node * 2 + 1]);
+
+        segTreeMin[node] = Math.min(segTreeMin[node * 2], segTreeMin[node * 2 + 1]);
+
+    }
+
+ 
+
+    private static int query(int node, int start, int end, int left, int right) {
+
+        if (right < start || left > end)
+
+            return 0;
+
+ 
+
+        if (left <= start && end <= right)
+
+            return segTree[node];
+
+ 
+
+        int mid = (start + end) / 2;
+
+ 
+
+        return Math.max(query(node * 2, start, mid, left, right),
+
+                query(node * 2 + 1, mid + 1, end, left, right));
+
+    }
+
+ 
+
+    private static int queryMin(int node, int start, int end, int left, int right) {
+
+        if (right < start || left > end)
+
+            return Integer.MAX_VALUE;
+
+ 
+
+        if (left <= start && end <= right)
+
+            return segTreeMin[node];
+
+ 
+
+        int mid = (start + end) / 2;
+
+ 
+
+        return Math.min(queryMin(node * 2, start, mid, left, right),
+
+                queryMin(node * 2 + 1, mid + 1, end, left, right));
+
+    }
+
+ 
+
+}
