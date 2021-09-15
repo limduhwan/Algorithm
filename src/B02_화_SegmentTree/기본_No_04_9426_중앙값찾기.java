@@ -5,7 +5,9 @@ import java.util.ArrayDeque;
 import java.util.StringTokenizer;
 
 // 중앙값 찾기
-public class No_04_9426_k번째수찾기_update_응용 {
+//https://velog.io/@imfksh/%EB%B0%B1%EC%A4%80-9426-Java
+//https://www.acmicpc.net/problem/9426
+public class 기본_No_04_9426_중앙값찾기 {
 
     static int[] segTree;
     static int MAX = 65535;

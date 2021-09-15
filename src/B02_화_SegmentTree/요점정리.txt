@@ -4,7 +4,14 @@ https://www.acmicpc.net/workbook/view/822
 https://hyeonseong.tistory.com/3
 https://www.acmicpc.net/problemset?sort=ac_desc&algo=65
 
+
+CIC 강의
+https://platform.samsungcic.com/#/contents/home/CONT2021071916141315
+
 업데이트는 이렇게
+이건 밑에서 부터 연산의 결과를 노드에 저장하면서
+리프노드만 업데이트 해 주고 리프노드부터 밀고 올라가는 케이스
+** 이걸 우선적으로 하자
 static long update(int node, int start, int end, int index, int c){
     if(index < start || end < index){
         return tree[node];
@@ -19,3 +26,32 @@ static long update(int node, int start, int end, int index, int c){
                        *update(node*2+1, mid+1, end, index, c)%d;
 
 }
+
+모든 노드에 일정값만큼 업데이트
+이건 리프노드 뿐만 아니라 모든 노드에 차이분만 업데이트
+static void update(int node, int start, int end, int index, int dif){
+    if(index < start || end < index) {
+        return;
+    }
+
+    segTree[node] = segTree[node] + dif;
+
+    if(start == end){
+        return;
+    }
+
+    int mid = (start+end)/2;
+
+    update(node*2, start, mid, index, dif);
+    update(node*2+1,mid+1, end,  index, dif);
+}
+
+[K번째 수 구하기 원리 (중앙값 등)]
+세그먼트트리에서 K번째를 찾기 위해서는
+나의 왼쪽 자식인 tree[node*2]와 값을 비교해보면 된다
+만약 K가 같거나 작다면 왼쪽에 있는 것이니까 왼쪽으로가고
+아니라면 오른쪽으로 가는데 K에서 왼쪽만큼을 빼고 가야한다!
+그래야 전체적으로 볼때 K번째를 찾을 수 있다.
+
+https://platform.samsungcic.com/#/contents/home/CONT2021071916141315
+26분:40초

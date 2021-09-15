@@ -41,7 +41,7 @@ public class 기본_No_03_11505_update_01번_반복중 {
         M = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
 
-        System.out.println(N +" "+ M +" "+ K);
+//        System.out.println(N +" "+ M +" "+ K);
 
         arr = new int[N+1];
         tree = new long[N*4];
@@ -67,7 +67,7 @@ public class 기본_No_03_11505_update_01번_반복중 {
             int c = Integer.parseInt(st.nextToken());
 
             if(a == 1){
-                System.out.println("b, c " + b +" " + c);
+//                System.out.println("b, c " + b +" " + c);
                 //update
                 updateTree(1, 1, N, b, c);
 

@@ -31,7 +31,7 @@ public class 문제풀이_Day01_01번_위대한항로_00_다익스트라_완성 
     static int N, M, K, T;
 
     public static void main(String[] args) throws IOException{
-        BufferedReader br = new BufferedReader(new FileReader("�������׷�.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("No_위대한항로.txt"));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
 
