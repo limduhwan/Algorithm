@@ -1,0 +1,246 @@
+
+import java.io.*;
+
+import java.util.ArrayList;
+
+import java.util.Arrays;
+
+import java.util.PriorityQueue;
+
+import java.util.StringTokenizer;
+
+ 
+
+/*
+
+김희성 프로(SW역량강화TF)
+
+알고리즘 유형 : 다익스트라
+
+ 
+
+풀이
+
+ 
+
+idea : 정방향(1->N)으로 탐색하면 음수 간선이 생기므로 타임아웃이 발생한다.
+
+따라서 역방향(N->1)으로 탐색하는 방법을 생각해 볼 수 있다.
+
+역뱡향 기준에서는 남아있는 식량은 의미가 없으므로
+
+음수 간선이 발생할 경우 0 으로 만들면 된다.
+
+ 
+
+1. 입력 값의 간선 정보를 역방향으로 저장
+
+2. 다익스트라 수행
+
+    2-1 시작점을 N 으로 설정하여 시작
+
+    2-2 현재 지점까지 거리 + 다음 지점까지 거리 - 다음 지점의 식량
+
+    을 간선 가중치로 설정하여 최단거리 계산
+
+    이때 음수 가중치가 생기면 가중치를 0 으로 바꾼다.
+
+ 
+
+죠르디는 사랑입니다♥
+
+ */
+
+public class 위대한항로 {
+
+ 
+
+    private static class Node implements Comparable<Node> {
+
+        int dest;
+
+        int cost;
+
+        public Node(int dest, int cost) {
+
+            this.dest = dest;
+
+            this.cost = cost;
+
+        }
+
+ 
+
+        @Override
+
+        public int compareTo(Node o) {
+
+            return this.cost - o.cost;
+
+        }
+
+    }
+
+ 
+
+    private static ArrayList<Node>[] adjList;
+
+    private static int[] dist;
+
+    private static int[] food;
+
+ 
+
+    public static void main(String[] args) throws Exception {
+
+        System.setIn(new FileInputStream("sample_input.txt"));
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+ 
+
+        int T = Integer.parseInt(st.nextToken());
+
+ 
+
+        for (int tc = 1; tc <= T; tc++) {
+
+            st = new StringTokenizer(br.readLine());
+
+            int N = Integer.parseInt(st.nextToken()); // 섬나라의 개수
+
+            int M = Integer.parseInt(st.nextToken()); // 해류의 개수
+
+            int K = Integer.parseInt(st.nextToken()); // 친구들이 사는 섬나라의 개수
+
+ 
+
+            adjList = new ArrayList[N + 1];
+
+ 
+
+            for (int i = 1; i <= N; i++) {
+
+                adjList[i] = new ArrayList<>();
+
+            }
+
+ 
+
+            for (int i = 0; i < M; i++) {
+
+                st = new StringTokenizer(br.readLine());
+
+                int start = Integer.parseInt(st.nextToken());
+
+                int end = Integer.parseInt(st.nextToken());
+
+                int cost = Integer.parseInt(st.nextToken());
+
+                // N -> 1 로 갈거라 간선의 정보를 반대로 저장한다.
+
+                adjList[end].add(new Node(start, cost));
+
+            }
+
+ 
+
+            food = new int[N + 1];
+
+            dist = new int[N + 1];
+
+ 
+
+            for (int i = 0; i < K; i++) {
+
+                st = new StringTokenizer(br.readLine());
+
+                int idx = Integer.parseInt(st.nextToken());
+
+                int value = Integer.parseInt(st.nextToken());
+
+                // idx 위치에 얼마의 식량이 있는지 저장
+
+                food[idx] = value;
+
+            }
+
+ 
+
+            // 다익스트라 목적지(N) -> 출발지(1) 방향으로 수행
+
+            dijkstra(N, 1);
+
+ 
+
+            bw.write("#" + tc + " " + dist[1] + "\n");
+
+            bw.flush();
+
+        }
+
+    }
+
+ 
+
+    private static void dijkstra(int start, int dest) {
+
+        PriorityQueue<Node> PQ = new PriorityQueue<>();
+
+ 
+
+        // cost 배열 (무한대 값으로) 초기화
+
+        Arrays.fill(dist, Integer.MAX_VALUE);
+
+ 
+
+        // 시작 정점 설정
+
+        dist[start] = 0;
+
+        PQ.add(new Node(start, 0));
+
+ 
+
+        while (!PQ.isEmpty()) {
+
+            Node now = PQ.poll();
+
+            // 더 큰 가중치로 도착한 경우 패스
+
+            if (now.cost > dist[now.dest])
+
+                continue;
+
+ 
+
+            // 연결된 간선 탐색
+
+            for (Node next : adjList[now.dest]) {
+
+                // cost 가 더 작을 때만 갱신하고 PQ큐에 넣음
+
+                // 남아있는 식량은 의미가 없으므로, 음수의 간선이면 0 으로 만든다.
+
+                if (dist[next.dest] > Math.max(now.cost + next.cost - food[next.dest], 0)) {
+
+                    dist[next.dest] = Math.max(now.cost + next.cost - food[next.dest], 0);
+
+                    PQ.add(new Node(next.dest, dist[next.dest]));
+
+                }
+
+            }
+
+        }
+
+    }
+
+ 
+
+}

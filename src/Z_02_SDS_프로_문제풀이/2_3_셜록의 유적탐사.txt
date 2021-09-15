@@ -1,0 +1,110 @@
+
+import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+import java.util.Arrays;
+
+import java.util.StringTokenizer;
+
+ 
+
+// Dynamic Programming
+
+public class 셜록의유적탐사 {
+
+ 
+
+    private static int[] button = new int[1000];
+
+    private static long[] dp = new long[400000];
+
+ 
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringTokenizer st;
+
+        int T = Integer.parseInt(br.readLine());
+
+ 
+
+        for (int tc = 1; tc <= T; tc++) {
+
+            st = new StringTokenizer(br.readLine());
+
+            int N = Integer.parseInt(st.nextToken()); // 버튼의 수
+
+            int M = Integer.parseInt(st.nextToken()); // 다이얼의 칸 수
+
+            int K = Integer.parseInt(st.nextToken()); // 잠금장치 조건 K
+
+ 
+
+            Arrays.fill(dp, 0);
+
+ 
+
+            st = new StringTokenizer(br.readLine());
+
+            for (int i = 0; i < N; i++) {
+
+                button[i] = Integer.parseInt(st.nextToken()) % M;
+
+                // 음의 방향으로 -N 이면 양의 방향으로 M-N 과 같음
+
+                if (button[i] < 0)
+
+                    button[i] += M;
+
+            }
+
+ 
+
+            for(int i = 0; i < N; i++) {
+
+                for(int j = 0; j < N; j++) {
+
+                    // 버튼을 2번 눌렀을 때 도달하는 횟수 저장
+
+                    dp[(button[i] + button[j]) % M]++;
+
+                }
+
+            }
+
+ 
+
+            long result = 0;
+
+ 
+
+            for(int i = 0; i < M; i++) {
+
+                // ex) i = 0 은 dp[0] 에 도달한 횟수 * dp[k] 에 도달한 횟수
+
+                // 두 번 눌렀을 때 0 이고, 또 두 번 눌렀을 때 K 이면
+
+                // 4번 눌러서 K 에 도착할 수 있다는 뜻
+
+                result += i > K ? dp[i] * dp[M+K-i] : dp[i] * dp[K-i];
+
+            }
+
+ 
+
+            System.out.println("#" + tc + " " + result);
+
+ 
+
+        }
+
+    }
+
+ 
+
+}

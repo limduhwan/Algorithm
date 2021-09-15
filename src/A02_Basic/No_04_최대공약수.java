@@ -35,4 +35,12 @@ public class No_04_최대공약수 {
             b = r;
         }
     }
+
+    //이 코드를 외우자
+    static int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
 }

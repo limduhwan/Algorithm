@@ -1,0 +1,254 @@
+
+import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+import java.util.ArrayList;
+
+import java.util.StringTokenizer;
+
+ 
+
+/*
+
+중요!!! : 주석 삭제 금지 / 동일 코드 SW검정 사이트 제출 금지
+
+ 
+
+김희성 프로(SW역량강화TF)
+
+알고리즘 유형 : DP (Dynamic Programming)
+
+ 
+
+주변 8개(자기자신 포함 9개)를 제외한 경우의 수를 매번 구해주면 타임아웃이 발생한다.
+
+따라서 전체 경우의 수에서 9개 경우를 빼는 방식으로 진행한다.
+
+ 
+
+풀이 설명은 아래 코드로 대체함
+
+ 
+
+죠르디는 사랑입니다♥
+
+ */
+
+public class 기출_210228_비밀의방 {
+
+ 
+
+    // 자기 자신(0, 0)을 포함한 주변 8개 방향 확인을 위한 offset
+
+    private static final int[] rx = {-1, -1, -1, 0, 0, 0, 1, 1, 1};
+
+    private static final int[] ry = {1, 0, -1, 1, 0, -1, 1, 0, -1};
+
+ 
+
+    private static final int MOD = 1000000007;
+
+ 
+
+    private static class Node {
+
+        int x;
+
+        int y;
+
+        public Node(int x, int y) {
+
+            this.x = x;
+
+            this.y = y;
+
+        }
+
+    }
+
+ 
+
+    public static void main(String[] args) throws IOException {
+
+//        System.setIn(new FileInputStream("sample_input.txt"));
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringTokenizer st;
+
+        int TC = Integer.parseInt(br.readLine());
+
+ 
+
+        for (int tc = 1; tc <= TC; tc++) {
+
+            st = new StringTokenizer(br.readLine());
+
+            int N = Integer.parseInt(st.nextToken());
+
+            int M = Integer.parseInt(st.nextToken());
+
+            int K = Integer.parseInt(st.nextToken()); // 패스워드의 길이
+
+ 
+
+            char[] pw = br.readLine().toCharArray();
+
+ 
+
+            char[][] map = new char[N][M]; // 입력 값 저장
+
+ 
+
+            // [암호길이][N][M]
+
+            int[][][] cnt = new int[K][N][M]; // 경우의 수 저장
+
+ 
+
+            // 각 알파벳이 있는 위치 저장을 위한 좌표 쌍(i, j) 리스트
+
+            ArrayList<Node>[] adjList = new ArrayList['Z' - 'A' + 1];
+
+ 
+
+            for (int i = 0; i < adjList.length; i++) {
+
+                adjList[i] = new ArrayList<>();
+
+            }
+
+ 
+
+            for (int i = 0; i < N; i++) {
+
+                map[i] = br.readLine().toCharArray();
+
+                for (int j = 0; j < M; j++) {
+
+                    // 알파벳 위치 저장
+
+                    adjList[map[i][j] - 'A'].add(new Node(i, j));
+
+                    if (pw[0] == map[i][j]) {
+
+                        // 시작 위치는 경우의 수가 1개 있는 것으로 저장
+
+                        cnt[0][i][j] = 1;
+
+                    }
+
+                }
+
+            }
+
+ 
+
+            for (int i = 1; i < K; i++) {
+
+                // i번 째에서 전체 경우의 수를 sum 에 저장
+
+                // sum 은 i-1 번째 암호를 만드는 모든 경우의 수를 더한 것과 같음
+
+                int sum = 0;
+
+                for (Node now : adjList[pw[i-1] - 'A']) {
+
+                    sum += cnt[i - 1][now.x][now.y];
+
+                    sum %= MOD;
+
+                }
+
+ 
+
+                // i번째 암호 iteration
+
+                for (Node next : adjList[pw[i] - 'A']) {
+
+ 
+
+                    // 초기값은 전체 경우의 수
+
+                    cnt[i][next.x][next.y] = sum;
+
+ 
+
+                    // (자기 자신 포함) 주변 9개 칸 탐색
+
+                    for (int j = 0; j < 9; j++) {
+
+                        int x = next.x + rx[j];
+
+                        int y = next.y + ry[j];
+
+ 
+
+                        // 유효한 범위가 아닐 경우 예외 처리
+
+                        if (x < 0 || y < 0 || x >= N || y >= M)
+
+                            continue;
+
+ 
+
+                        // i번째 암호와 i-1번째 암호가 인접한 경우의 수를 뺀다.
+
+                        // i-1번째 암호 주변 9개 칸에 i번째 암호가 있는 경우
+
+                        cnt[i][next.x][next.y] -= cnt[i - 1][x][y];
+
+ 
+
+                        // 음수가 나올 경우 MOD 를 더해서 양수로 만든다.
+
+                        while (cnt[i][next.x][next.y] < 0)
+
+                            cnt[i][next.x][next.y] += MOD;
+
+                    }
+
+                }
+
+            }
+
+ 
+
+            int result = 0;
+
+ 
+
+            // 마지막 글자가 만들어지는 모든 경우의 수를 더해주면 답
+
+            for (Node node : adjList[pw[K - 1] - 'A']) {
+
+                result += cnt[K-1][node.x][node.y];
+
+                result %= MOD;
+
+            }
+
+ 
+
+            // 불가능한 경우 -1을 출력
+
+            if (result == 0)
+
+                result = -1;
+
+ 
+
+            System.out.println("#" + tc + " " + result);
+
+ 
+
+        }
+
+    }
+
+ 
+
+}

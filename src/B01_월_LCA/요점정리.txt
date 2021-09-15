@@ -19,3 +19,7 @@ Kdf l
 
 temp<<=1;
  if(depth[y] - depth[x] >= (1<<i)){
+ }
+
+ 비트연산
+ https://coding-factory.tistory.com/521
