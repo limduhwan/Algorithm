@@ -1,0 +1,174 @@
+
+import java.io.BufferedReader;
+
+import java.io.InputStreamReader;
+
+import java.util.PriorityQueue;
+
+import java.util.StringTokenizer;
+
+ 
+
+/*
+
+김희성 프로(SW역량강화TF)
+
+알고리즘 유형 : 우선순위 큐(PQ) or 구간 트리 or 투 포인터
+
+ 
+
+풀이 - 우선순위 큐(PQ) 사용
+
+1. 각 편의 시설 별로 편의성이 가장 작은 수를 PQ 에 넣는다.
+
+( i (편의시설 번호), 0 (idx), i 편의시설의 0번째 편의성 )
+
+2. PQ 에서 편의성이 가장 작은 값을 꺼낸다.
+
+pq 에서 꺼낸 편의 시설의 다음 idx 값을 pq 에 넣는다.
+
+현재까지의 min 값은 pq 에서 꺼낸 편의성 값이 되고,
+
+max 값은 현재까지 pq 에 들어갔던 값의 max 와 pq 에 넣은 값 중 더 큰 값이 된다.
+
+3. 2번 과정을 어떤 편의 시설이 더 이상 다음 idx 가 없는 끝지점에 도달할 때까지 반복한다.
+
+ 
+
+다른 알고리즘 풀이법은 온택트 멘토링 참고.
+
+ 
+
+죠르디는 사랑입니다♥
+
+ */
+
+public class 기출_210730_편의시설 {
+
+ 
+
+    private static class Pair {
+
+        int n; // 편의 시절 번호
+
+        int idx; // n번 편의 시설의 몇 번째 방법(편의성)까지 들어갔는지
+
+        int num; // n번 편의 시설의 idx 번째 방법의 수
+
+ 
+
+        public Pair(int n, int idx, int num) {
+
+            this.n = n;
+
+            this.idx = idx;
+
+            this.num = num;
+
+        }
+
+    }
+
+ 
+
+    public static void main(String[] args) throws Exception {
+
+//        System.setIn(new FileInputStream("sample/편의시설.txt"));
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringTokenizer st;
+
+        int T = Integer.parseInt(br.readLine());
+
+ 
+
+        for (int tc = 1; tc <= T; tc++) {
+
+            st = new StringTokenizer(br.readLine());
+
+            int N = Integer.parseInt(st.nextToken()); // 편의 시설 수
+
+            int K = Integer.parseInt(st.nextToken()); // 방법의 수
+
+ 
+
+            int[][] arr = new int[N][K];
+
+ 
+
+            for (int i = 0; i < N; i++) {
+
+                st = new StringTokenizer(br.readLine());
+
+                for (int j = 0; j < K; j++) {
+
+                    arr[i][j] = Integer.parseInt(st.nextToken());
+
+                }
+
+            }
+
+ 
+
+            // 편의성을 기준으로 오름차순 정렬되는 PQ 생성
+
+            PriorityQueue<Pair> pq = new PriorityQueue<>((o1, o2) -> Integer.compare(o1.num, o2.num));
+
+            int min = 1000000001, max = 0; // 최대, 최소값 세팅
+
+ 
+
+            // 각 편의 시설 별로 가장 작은 편의성 수를 pq 에 넣는다.
+
+            for (int i = 0; i < N; i++) {
+
+                pq.offer(new Pair(i, 0, arr[i][0]));
+
+                // PQ 에 들어간 값 중에서 최대, 최소값 구하기
+
+                min = Math.min(min, arr[i][0]);
+
+                max = Math.max(max, arr[i][0]);
+
+            }
+
+ 
+
+            int result = max - min;
+
+ 
+
+            while (true) {
+
+                Pair now = pq.poll(); // 가장 작은 수 하나 꺼낸다.
+
+                int next = now.idx + 1; // 현재 편의 시설의 방법 중 다음 idx
+
+                if (next == K) // 마지막 위치에 도달하면 종료
+
+                    break;
+
+                // 편의시절 N번의 다음 수를 PQ 에 넣는다.
+
+                pq.offer(new Pair(now.n, next, arr[now.n][next]));
+
+                min = pq.peek().num; // PQ 에 들어있는 수 중에서 가장 작은 값
+
+                max = Math.max(max, arr[now.n][next]); // PQ 에 들어간 수 중에서 가장 큰 값
+
+                result = Math.min(result, max - min); // PQ 에 들어있는 수 중에서 max - min 의 최소값
+
+            }
+
+ 
+
+            System.out.println("#" + tc + " " + result);
+
+        }
+
+    }
+
+ 
+
+}

@@ -1,0 +1,182 @@
+
+import java.io.BufferedReader;
+
+import java.io.FileInputStream;
+
+import java.io.InputStreamReader;
+
+import java.util.Arrays;
+
+import java.util.StringTokenizer;
+
+ 
+
+/*
+
+김희성 프로(SW역량강화TF)
+
+알고리즘 유형 : LIS (Longest Increasing Subsequence : 가장 긴 증가하는 부분 수열)
+
+ 
+
+풀이
+
+1. 손잡이 쌍(a-b) 정보를 a 를 기준으로 오름차순 정렬을 한다.
+
+*이때 a 가 같으면 b 를 내림차순 정렬한다.
+
+ -> 두 손을 한꺼번에 더 높은 손잡이로 움직여야 하기 때문.
+
+ -> 즉, (2, 5) -> (2, 6) -> (2, 7) 이런 순서로는 잡을 수 없다.
+
+2. 정렬된 상태의 b 를 기준으로 LIS 의 길이를 구한다.
+
+ 
+
+죠르디는 사랑입니다♥
+
+ */
+
+public class 기출_210625_운동 {
+
+ 
+
+    private static class Pair implements Comparable<Pair> {
+
+        int a;
+
+        int b;
+
+ 
+
+        public Pair(int a, int b) {
+
+            this.a = a;
+
+            this.b = b;
+
+        }
+
+ 
+
+        @Override
+
+        public int compareTo(Pair o) {
+
+            if (this.a == o.a) // a 가 같으면 b 를 기준으로 내림차순 정렬
+
+                return Integer.compare(o.b, this.b);
+
+            else
+
+                return Integer.compare(this.a, o.a);
+
+        }
+
+    }
+
+ 
+
+    private static int[] dp;
+
+    private static Pair[] pair;
+
+ 
+
+    public static void main(String[] args) throws Exception {
+
+//        System.setIn(new FileInputStream("sample/운동.txt"));
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+ 
+
+        int T = Integer.parseInt(st.nextToken());
+
+ 
+
+        for (int tc = 1; tc <= T; tc++) {
+
+            st = new StringTokenizer(br.readLine());
+
+            int N = Integer.parseInt(st.nextToken()); // 손잡이의 가장 큰 번호
+
+            int M = Integer.parseInt(st.nextToken()); // 순서쌍의 개수
+
+ 
+
+            dp = new int[M];
+
+            pair = new Pair[M];
+
+ 
+
+            for (int i = 0; i < M; i++) {
+
+                st = new StringTokenizer(br.readLine());
+
+                int a = Integer.parseInt(st.nextToken());
+
+                int b = Integer.parseInt(st.nextToken());
+
+                pair[i] = new Pair(a, b);
+
+            }
+
+ 
+
+            // a 를 기준으로 정렬
+
+            Arrays.sort(pair);
+
+ 
+
+            // b 를 기준으로 LIS 길이가 답
+
+            System.out.println("#" + tc + " " + findLIS());
+
+        }
+
+    }
+
+ 
+
+    // 샘플 코드의 arr[x] 배열을 pair[x].b 로 치환
+
+    private static int findLIS() {
+
+        dp[0] = pair[0].b; // 첫번째 값은 그대로 가져온다
+
+        int max_idx = 0;
+
+        for (int i = 1; i < pair.length; i++) {
+
+            // dp 배열의 가장 큰 수보다 더 큰 수가 들어오면 뒤에 이어서 붙인다.
+
+            if (dp[max_idx] < pair[i].b) {
+
+                dp[++max_idx] = pair[i].b;
+
+            } else {
+
+                // dp 배열의 가장 큰 수보다 작을 경우 배열 내에서 Lower Bound 와 교체
+
+                int tmp = Arrays.binarySearch(dp, 0, max_idx, pair[i].b);
+
+                int target = tmp < 0 ? (tmp * -1) - 1 : tmp;
+
+                dp[target] = pair[i].b;
+
+            }
+
+        }
+
+        return max_idx + 1;
+
+    }
+
+ 
+
+}

@@ -1,0 +1,250 @@
+
+import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+import java.util.Arrays;
+
+import java.util.StringTokenizer;
+
+ 
+
+/*
+
+김희성 프로(SW역량강화TF)
+
+알고리즘 유형 : 인덱스 트리 + 투 포인터
+
+ 
+
+풀이
+
+1. Min, Max 값을 찾는 인덱스 트리를 구성한다.
+
+2. 구간을 left ~ right 로 나누어서 첫 번째 값을 min, max 로
+
+둔 후에 max - min <= K 면 right 를 증가,
+
+반대면 left 를 증가하면서 가장 큰 (right - left + 1) 값을 찾는다.
+
+3. right 를 증가할 때는
+
+단순히 기존의 min, max 값과 새로운 right 값을 비교해서 갱신하면 되고,
+
+반대로 left 가 증가할 때는
+
+left ~ right 구간까지 min, max 값을 인덱스 트리에서 찾으면 된다.
+
+ 
+
+죠르디는 사랑입니다♥
+
+ */
+
+public class 기출_210702_박스권 {
+
+ 
+
+    private static int[] indexTree; // 인덱스 트리 데이터 저장
+
+    private static int[] indexMaxTree; // 인덱스 트리 최대값 데이터 저장
+
+    private static int s_idx;
+
+ 
+
+    public static void main(String[] args) throws IOException {
+
+//        System.setIn(new FileInputStream("sample/박스권.txt"));
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringTokenizer st;
+
+        int T = Integer.parseInt(br.readLine());
+
+ 
+
+        for (int tc = 1; tc <= T; tc++) {
+
+            st = new StringTokenizer(br.readLine());
+
+            int N = Integer.parseInt(st.nextToken()); // 일자의 수
+
+            int K = Integer.parseInt(st.nextToken()); // 최대, 최소 값의 차이
+
+ 
+
+            // leaf 노드 시작 지점 계산
+
+            s_idx = 1;
+
+            while (s_idx < N)
+
+                s_idx <<= 1;
+
+ 
+
+            indexTree = new int[s_idx * 2];
+
+            Arrays.fill(indexTree, Integer.MAX_VALUE);
+
+            indexMaxTree = new int[s_idx * 2];
+
+ 
+
+            s_idx--;
+
+ 
+
+            st = new StringTokenizer(br.readLine());
+
+            for (int i = 1; i <= N; i++) {
+
+                indexMaxTree[i + s_idx] = indexTree[i + s_idx] = Integer.parseInt(st.nextToken());
+
+            }
+
+ 
+
+            // 인덱스 리프 노드 외 노드들 데이터 채우기
+
+            init(s_idx + 1, N);
+
+ 
+
+            int left = 1, right = 1;
+
+            int min = indexTree[1 + s_idx];
+
+            int max = indexTree[1 + s_idx];
+
+ 
+
+            int result = 0;
+
+ 
+
+            while (left <= right) {
+
+                // max - min 가 K 보다 작으면 right 를 증가시키면서 가장 긴 길이 찾기
+
+                if (max - min <= K) {
+
+                    result = Math.max(result, right - left + 1);
+
+                    if (right == N)
+
+                        break;
+
+                    right++;
+
+                    max = Math.max(max, indexTree[right + s_idx]);
+
+                    min = Math.min(min, indexTree[right + s_idx]);
+
+                }
+
+                // max - min 가 K 보다 크면 left 를 증가시키면서 min, max 갱신하기
+
+                else {
+
+                    left++;
+
+                    int[] res = query(left, right);
+
+                    min = res[0]; // 구간 최소 값
+
+                    max = res[1]; // 구간 최대 값
+
+                }
+
+            }
+
+ 
+
+            System.out.println("#" + tc + " " + result);
+
+ 
+
+        }
+
+    }
+
+ 
+
+    // 인덱스 트리
+
+    private static void init(int start, int end) {
+
+        for (int i = start; i < start + end; i++) {
+
+            int P = i >> 1; // i / 2
+
+            while (P != 0) {
+
+                indexTree[P] = Math.min(indexTree[i], indexTree[P]);
+
+                indexMaxTree[P] = Math.max(indexMaxTree[i], indexMaxTree[P]);
+
+                P >>= 1;
+
+            }
+
+        }
+
+    }
+
+ 
+
+    private static int[] query(int left, int right) {
+
+        left += s_idx;
+
+        right += s_idx;
+
+        int[] result = {Integer.MAX_VALUE, 0};
+
+ 
+
+        while (left <= right) {
+
+            // 시작하는 부분이 홀수 일 때
+
+            if (left % 2 == 1) {
+
+                result[0] = Math.min(result[0], indexTree[left]);
+
+                result[1] = Math.max(result[1], indexMaxTree[left]);
+
+            }
+
+            // 끝나는 부분이 짝수 일 때
+
+            if (right % 2 == 0) {
+
+                result[0] = Math.min(result[0], indexTree[right]);
+
+                result[1] = Math.max(result[1], indexMaxTree[right]);
+
+            }
+
+ 
+
+            left = (left + 1) >> 1;
+
+            right = (right - 1) >> 1;
+
+        }
+
+ 
+
+        return result;
+
+    }
+
+ 
+
+}
