@@ -41,7 +41,7 @@ public class 문제풀이_Day02_04번_부품공장_00_세그먼트트리_나에�
                 comps[i] = new Comp(a, b);
             }
 
-            //이건 뭔가????
+            //a 값을 가지고 오름차순 정렬
             Arrays.sort(comps, (o1, o2) -> o1.a - o2.a);
 
             ArrayDeque<Comp> q = new ArrayDeque<>();
