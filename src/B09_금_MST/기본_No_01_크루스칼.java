@@ -8,7 +8,7 @@ import java.util.Collections;
 //최소비용으로 모든 정점을 연결하는 트리
 //https://brenden.tistory.com/36
 
-public class No_01_크루스칼_기본 {
+public class 기본_No_01_크루스칼 {
     public static int[] parent;
     public static ArrayList<Edge> edgeList;
 

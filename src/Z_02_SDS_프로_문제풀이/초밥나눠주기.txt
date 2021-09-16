@@ -1,0 +1,244 @@
+
+import java.io.BufferedReader;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+import java.util.ArrayList;
+
+import java.util.Arrays;
+
+import java.util.StringTokenizer;
+
+ 
+
+/*
+
+김희성 프로(SW역량강화TF)
+
+알고리즘 유형 : 구간 트리 (인덱스 트리, 세그먼트 트리)
+
+ 
+
+풀이
+
+ - 구간의 MAX 값을 찾는 인덱스 트리를 사용한다.
+
+1. 우선 순위 기준으로 오름차순 정렬을 해야되고 순위가 같을 때도 있으니
+
+ArrayList<>[] 을 만들어서 배열의 index 로 우선 순위를 넣고
+
+그 List 에는 그 때의 위치를 저장해 두자
+
+2. ArrayList<>[1] -> ArrayList<>[N] 까지 돌면서
+
+사람들의 해당 구간 초밥 갯수의 MAX 를 인덱스 트리에서 찾고,
+
+거기에 + 1 을 해주면 그 사람의 초밥 갯수가 된다.
+
+3. 2 에서 구한 초밥 갯수를 위치와 함께 저장만 해두었다가
+
+그 로직이 끝나면 다시 한 번 돌면서 트리에 업데이트 한다.
+
+ 
+
+죠르디는 사랑입니다♥
+
+ */
+
+public class 기출_210611_초밥나눠주기 {
+
+ 
+
+    private static class Rank {
+
+        int idx;
+
+        int cnt;
+
+ 
+
+        public Rank(int idx, int cnt) {
+
+            this.idx = idx;
+
+            this.cnt = cnt;
+
+        }
+
+    }
+
+ 
+
+    private static int[] indexTree;
+
+    private static int s_idx;
+
+ 
+
+    public static void main(String[] args) throws IOException {
+
+//        System.setIn(new FileInputStream("sample/초밥나눠주기.txt"));
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringTokenizer st;
+
+        int T = Integer.parseInt(br.readLine());
+
+ 
+
+        for (int tc = 1; tc <= T; tc++) {
+
+            st = new StringTokenizer(br.readLine());
+
+            int N = Integer.parseInt(st.nextToken()); // 참가자의 수
+
+            int K = Integer.parseInt(st.nextToken()); // 순위를 비교하는 사람의 수
+
+ 
+
+            s_idx = 1;
+
+            while (s_idx < N)
+
+                s_idx <<= 1;
+
+ 
+
+            indexTree = new int[s_idx * 2]; // 사람의 수 만큼 만든 MAX 값 트리
+
+            s_idx--;
+
+ 
+
+            // 각 우선 순위 별로 위치를 저장해둘 인접리스트
+
+            ArrayList<Rank>[] ranks = new ArrayList[N + 1];
+
+            for (int i = 1; i < N + 1; i++) {
+
+                ranks[i] = new ArrayList<>();
+
+            }
+
+ 
+
+            st = new StringTokenizer(br.readLine());
+
+            for (int i = 1; i <= N; i++) {
+
+                // 우선 순위를 배열의 index 로 사용해서 그 때의 순서를 저장해둔다.
+
+                // 예) 우선 순위가 3 인 사람이 2 번째에 있고, 7 번째에 있으면
+
+                // ranks[3].add(new Rank(2, 0)), ranks[3].add(new Rank(7, 0)) 이렇게 될거임
+
+                ranks[Integer.parseInt(st.nextToken())].add(new Rank(i, 0));
+
+            }
+
+ 
+
+            long result = 0;
+
+ 
+
+            for (int i = 1; i <= N; i++) {
+
+                for (Rank rank : ranks[i]) {
+
+                    // 트리에서 MAX 값을 찾아와서 + 1 을 하면 그 사람에게 줘야하는 초밥 개수
+
+                    rank.cnt = query(Math.max(rank.idx - K, 1), Math.min(rank.idx + K, N)) + 1;
+
+                    result += rank.cnt;
+
+                }
+
+                // 트리의 idx 위치에 cnt 를 업데이트
+
+                for (Rank rank : ranks[i]) {
+
+                    update(rank.idx, rank.cnt);
+
+                }
+
+            }
+
+ 
+
+            System.out.println("#" + tc + " " + result);
+
+ 
+
+        }
+
+    }
+
+ 
+
+    // 구간의 최대값 인덱스 트리
+
+    private static int query(int left, int right) {
+
+        left += s_idx;
+
+        right += s_idx;
+
+ 
+
+        int max = 0;
+
+ 
+
+        while (left <= right) {
+
+            if (left % 2 == 1)
+
+                max = Math.max(max, indexTree[left]);
+
+ 
+
+            if (right % 2 == 0)
+
+                max = Math.max(max, indexTree[right]);
+
+ 
+
+            left = (left + 1) >> 1;
+
+            right = (right - 1) >> 1;
+
+        }
+
+ 
+
+        return max;
+
+    }
+
+ 
+
+    private static void update(int idx, int val) {
+
+        idx += s_idx;
+
+        indexTree[idx] = val;
+
+        idx >>= 1;
+
+        while (idx > 0) {
+
+            indexTree[idx] = Math.max(indexTree[idx * 2], indexTree[idx * 2 + 1]);
+
+            idx >>= 1;
+
+        }
+
+    }
+
+ 
+
+}

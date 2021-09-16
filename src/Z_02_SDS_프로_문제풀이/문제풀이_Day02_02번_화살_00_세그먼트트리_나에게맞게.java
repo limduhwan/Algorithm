@@ -28,6 +28,7 @@ import java.util.StringTokenizer;
 //세그먼트트리에서 K번째 수 찾기
 //Arrays.sort ( , ,) from index, to Index
 //세그먼트트리 연산없이 노드만 업데이트하는 방법
+//[2일차] [SW검정] Professional 실전 문제풀이 과정(5/7)
 public class 문제풀이_Day02_02번_화살_00_세그먼트트리_나에게맞게 {
 
     static class Point implements Comparable<Point>{

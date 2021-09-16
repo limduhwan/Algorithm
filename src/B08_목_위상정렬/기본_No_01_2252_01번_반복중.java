@@ -2,10 +2,8 @@ package B08_목_위상정렬;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
+
 //문제
 //N명의 학생들을 키 순서대로 줄을 세우려고 한다. 각 학생의 키를 직접 재서 정렬하면 간단하겠지만,
 //마땅한 방법이 없어서 두 학생의 키를 비교하는 방법을 사용하기로 하였다.
@@ -27,53 +25,57 @@ import java.util.StringTokenizer;
 //https://www.acmicpc.net/problem/2252
 //https://m.blog.naver.com/ndb796/221236874984
 //https://zoonvivor.tistory.com/95
-public class No_01_2252 {
+public class 기본_No_01_2252_01번_반복중 {
     static int N, M;
+    static ArrayList<Integer>[] ar;
     static int[] indegree;
-    static ArrayList<Integer>[] list;
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader("No_2252.txt"));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringTokenizer st;
 
+        st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
 
+        ar = new ArrayList[N+1];
+
+        for (int i = 0; i <=N ; i++) {
+            ar[i] = new ArrayList<>();
+        }
+        
         indegree = new int[N+1];
-        list = new ArrayList[N+1];
-
-        for(int i=1; i<=N; i++){
-            list[i] = new ArrayList<Integer>();
-        }
-
-        for(int i=0; i<M; i++){
+        for (int i = 1; i <=M ; i++) {
             st = new StringTokenizer(br.readLine());
-            int x = Integer.parseInt(st.nextToken());
-            int y = Integer.parseInt(st.nextToken());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
 
-            list[x].add(y);
-            indegree[y]++;
+            ar[a].add(b);
+            indegree[b]++;
         }
 
-        Queue<Integer> queue = new LinkedList<Integer>();
+        ArrayDeque<Integer> queue = new ArrayDeque<>();
 
-        for(int i=1; i<=N; i++){
+        for (int i = 1; i <=N ; i++) {
             if(indegree[i] == 0){
                 queue.add(i);
             }
         }
 
         while(!queue.isEmpty()){
-            System.out.print(queue.peek());
-            int current = queue.poll();
+            System.out.println(queue.peek());
+            int start = queue.poll();
 
-            for(int i=0; i<list[current].size(); i++){
-                int next = list[current].get(i);
-                indegree[next]--;
-                if(indegree[next]==0){
-                    queue.add(next);
+            for (int i = 0; i <ar[start].size() ; i++) {
+                int end = ar[start].get(i);
+
+                indegree[end]--;
+                if(indegree[end] == 0){
+                    queue.add(end);
                 }
+
             }
+
         }
     }
 }

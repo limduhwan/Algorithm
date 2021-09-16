@@ -6,10 +6,11 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class 기본_No_24_1753 {
+//https://www.acmicpc.net/problem/1753
+public class 기본_No_24_1753_01번_반복중_Node {
     static int V, E, startPoint;
     static ArrayList<Node>[] al;
-    static int[] di;
+    static int[] dist;
     public static void main(String[] agrs) throws IOException{
         BufferedReader br = new BufferedReader(new FileReader("No_1753.txt"));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -20,48 +21,51 @@ public class 기본_No_24_1753 {
         E = Integer.parseInt(st.nextToken());
 
         startPoint = Integer.parseInt(br.readLine());
-        al = new ArrayList[V+1];
-        di = new int[V+1];
-        Arrays.fill(di, Integer.MAX_VALUE);
 
-        for(int i = 0; i<V+1; i++){
-            al[i] = new ArrayList<Node>();
+        al = new ArrayList[V+1];
+        dist = new int[V+1];
+
+        for (int i = 0; i <=V ; i++) {
+            al[i] = new ArrayList<>();
         }
 
-        for(int i=0; i<E; i++){
+        Arrays.fill(dist, Integer.MAX_VALUE);
+
+        for (int i = 1; i <=E ; i++) {
             st = new StringTokenizer(br.readLine());
+
             int start = Integer.parseInt(st.nextToken());
             int end = Integer.parseInt(st.nextToken());
             int weight = Integer.parseInt(st.nextToken());
-//            System.out.println(start+"   "+end+"   "+weight);
+
             al[start].add(new Node(end, weight));
-//            al[end].add(new Node(start, weight));
         }
 
-        di[startPoint] = 0;
-        dij(startPoint);
+        dist[startPoint] = 0;
+        daik(startPoint);
 
-        for(int i=1; i<di.length; i++){
-            System.out.println(di[i]);
+        for (int i = 1; i <=V; i++) {
+            System.out.println(dist[i]);
         }
 
     }
 
-    static void dij(int startPoint){
+    static void daik(int startPoint){
+        PriorityQueue<Node> pq = new PriorityQueue<>();
 
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
-        pq.offer(startPoint);
+        pq.offer(new Node(startPoint, 0));
 
         while(!pq.isEmpty()){
-            int que = pq.poll();
-            for(int i = 0; i< al[que].size(); i++){
-                Node node = al[que].get(i);
-                System.out.println(que+"   "+node.end +"    "+ node.weight);
+            Node hereNode = pq.poll();
 
-                if(di[node.end] > di[que] + node.weight){
-                    di[node.end] = di[que] + node.weight;
-                    pq.offer(node.end);
+            for (int i = 0; i <al[hereNode.end].size() ; i++) {
+                Node nextNode = al[hereNode.end].get(i);
+
+                if(dist[nextNode.end] > dist[hereNode.end] + nextNode.weight){
+                    dist[nextNode.end] = dist[hereNode.end] + nextNode.weight;
+                    pq.offer(new Node(nextNode.end, dist[nextNode.end]));
                 }
+
             }
         }
 
@@ -71,16 +75,16 @@ public class 기본_No_24_1753 {
         int end;
         int weight;
 
-        Node(int end, int weight){
+        public Node(int end, int weight){
             this.end = end;
             this.weight = weight;
         }
 
         public int compareTo(Node o){
-
-//            return this.weight - o.weight;
             return Integer.compare(this.weight, o.weight);
         }
     }
+
+
 
 }

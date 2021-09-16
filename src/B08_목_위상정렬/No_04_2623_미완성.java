@@ -46,7 +46,7 @@ import java.io.IOException;
 // 만약 남일이가 순서를 정하는 것이 불가능할 경우에는 첫째 줄에 0을 출력한다.
 
 //https://velog.io/@minchae75/%EB%B0%B1%EC%A4%80-Java-2623%EB%B2%88-%EC%9D%8C%EC%95%85%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%A8
-public class No_04_2623 {
+public class No_04_2623_미완성 {
     public static void main(String[] args) throws IOException{
 
     }
