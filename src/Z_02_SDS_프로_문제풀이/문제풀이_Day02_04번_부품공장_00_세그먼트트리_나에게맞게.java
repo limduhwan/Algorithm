@@ -7,7 +7,7 @@ import java.io.IOException;
 //17:00 원리설명
 //구간합
 //트리에 넣었던 걸 다시 뺀다
-public class 문제풀이_Day02_04번_부품공장_00_세그먼트트리_미완성 {
+public class 문제풀이_Day02_04번_부품공장_00_세그먼트트리_나에게맞게 {
 
     public static void main(String[] args) throws IOException{
 
