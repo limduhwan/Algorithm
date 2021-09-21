@@ -1,0 +1,80 @@
+
+import java.util.Scanner;
+
+ 
+
+class Solution {
+
+    static int N;
+
+    static int H;
+
+    static int MAXSIZE = 100000000;
+
+    static int Wood[];
+
+ 
+
+    static boolean fmax(int size) {
+
+        int h = 0;
+
+        for(int i = 0; i < N; i++) 
+
+            h += (0 > (Wood[i] - size)? 0 : (Wood[i] - size));
+
+        if(h >= H) return true;
+
+        return false;
+
+    }
+
+     
+
+    public static void main(String arg[]) throws Exception {
+
+        Scanner sc = new Scanner(System.in);
+
+         
+
+        int T = sc.nextInt();
+
+ 
+
+        for (int test_case = 1; test_case <= T; test_case++) {
+
+            N = sc.nextInt();
+
+            H = sc.nextInt();
+
+ 
+
+            Wood = new int[N];
+
+            for (int i = 0; i < N; i++) Wood[i] = sc.nextInt();
+
+            int lb=-1, ub = MAXSIZE, m;
+
+            while(lb+1 < ub) {
+
+                m = lb+(ub-lb)/2;
+
+                if(fmax(m)) lb = m;
+
+                else ub = m;
+
+            }
+
+ 
+
+            System.out.println("#" + test_case + " "+ lb);
+
+        }
+
+         
+
+        sc.close();
+
+    }
+
+}

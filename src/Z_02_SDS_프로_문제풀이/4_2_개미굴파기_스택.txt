@@ -1,0 +1,214 @@
+
+import java.io.*;
+
+import java.util.*;
+
+ 
+
+public class Solution {
+
+ 
+
+    static class Edge{
+
+        int s, e, d;
+
+ 
+
+        private Edge(int s, int e, int d) {
+
+            this.s = s;
+
+            this.e = e;
+
+            this.d = d;
+
+        }
+
+    }
+
+ 
+
+    static int T, N, ANSWER;
+
+    static Stack<Edge> stk;
+
+    static ArrayList<Edge>[] ar;
+
+    static boolean[] visited;
+
+    static boolean findCycle;
+
+ 
+
+    static void findCycle(int before, int after){
+
+ 
+
+        if(!visited[after]){
+
+            visited[after] = true;
+
+            for(int i=0; i<ar[after].size(); i++){
+
+                if( before == ar[after].get(i).e ) continue;
+
+ 
+
+                stk.push(ar[after].get(i));
+
+                findCycle(after, ar[after].get(i).e );
+
+                stk.pop();
+
+            }
+
+        }
+
+        else if(!findCycle){
+
+            int maxD=0, tmpS=0;
+
+            Edge tmpEdge;
+
+ 
+
+            findCycle = true;
+
+            Stack<Edge> tmpStk = (Stack<Edge>) stk.clone();
+
+            while(after != tmpS){
+
+ 
+
+                tmpEdge = tmpStk.pop();
+
+                tmpS = tmpEdge.s;
+
+ 
+
+                if(maxD == tmpEdge.d ) ANSWER++;
+
+                else if(maxD < tmpEdge.d ){
+
+                    ANSWER = 1;
+
+                    maxD = tmpEdge.d;
+
+                }
+
+ 
+
+            }
+
+ 
+
+        }
+
+ 
+
+    }
+
+ 
+
+    public static void main(String[] args) throws Exception {
+
+ 
+
+        int s, e, d;
+
+ 
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        T = Integer.parseInt(st.nextToken());
+
+ 
+
+        for(int tc=1; tc <= T ; tc++){
+
+ 
+
+            st = new StringTokenizer(br.readLine());
+
+            N  = Integer.parseInt(st.nextToken());
+
+ 
+
+            ar = new ArrayList[N+1];
+
+            for(int i=1; i<=N; i++) ar[i] = new ArrayList<Edge>();
+
+ 
+
+            for(int i=1; i<=N; i++){
+
+                st = new StringTokenizer(br.readLine());
+
+                s = Integer.parseInt(st.nextToken());
+
+                e = Integer.parseInt(st.nextToken());
+
+                d = Integer.parseInt(st.nextToken());
+
+ 
+
+                ar[s].add(new Edge(s, e, d));
+
+                ar[e].add(new Edge(e, s, d));
+
+            }
+
+ 
+
+            visited = new boolean[N+1];
+
+            Arrays.fill(visited, false);
+
+ 
+
+            ANSWER = 0;
+
+            findCycle = false;
+
+            stk = new Stack<Edge>();
+
+ 
+
+            findCycle(0, 1);
+
+ 
+
+            for(int i=1; i<=N; i++){
+
+                if(!visited[i]){
+
+                    ANSWER = 0;
+
+                    break;
+
+                }
+
+            }
+
+ 
+
+            System.out.println("#"+tc+" "+ANSWER);
+
+ 
+
+        }
+
+ 
+
+ 
+
+ 
+
+    }
+
+ 
+
+}
