@@ -1,0 +1,224 @@
+
+import java.io.BufferedReader;
+
+import java.io.FileInputStream;
+
+import java.io.IOException;
+
+import java.io.InputStreamReader;
+
+import java.util.ArrayDeque;
+
+import java.util.Arrays;
+
+import java.util.StringTokenizer;
+
+ 
+
+/*
+
+김희성 프로(SW역량강화TF)
+
+알고리즘 유형 : BFS + 누적합
+
+ 
+
+풀이
+
+세로열 기준으로 BFS 탐색을 돌면서 각 칸까지 1 이 갈 수 있는 최단거리를 모두 구한다.
+
+1 이 있는 모든 칸은 거리 = 0 으로 세팅하고, BFS 탐색 시작 지점으로 모두 추가한다. (Queue 에 추가)
+
+BFS 탐색으로 구해지는 최단거리 N개의 가로들의 누적합을 구한다.
+
+구한 누적합 중에서 최소 값이 답이 된다.
+
+ 
+
+예시)
+
+입력
+
+111
+
+001
+
+011
+
+001
+
+ 
+
+최단거리 -> 누적합
+
+000 -> 0
+
+110 -> 2
+
+200 -> 2
+
+110 -> 2
+
+ 
+
+답 = 0 (누적합 중 최소값)
+
+ 
+
+죠르디는 사랑입니다♥
+
+ */
+
+public class 기출_210507_자물쇠 {
+
+ 
+
+    private static final int[] rx = {-1, 1};
+
+ 
+
+    public static void main(String[] args) throws IOException {
+
+//        System.setIn(new FileInputStream("sample/자물쇠.txt"));
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringTokenizer st;
+
+        int T = Integer.parseInt(br.readLine());
+
+ 
+
+        for (int tc = 1; tc <= T; tc++) {
+
+            st = new StringTokenizer(br.readLine());
+
+            int N = Integer.parseInt(st.nextToken()); // 가로 수
+
+            int K = Integer.parseInt(st.nextToken()); // 세로 수
+
+ 
+
+            char[][] arr = new char[K][N];
+
+ 
+
+            for (int i = 0; i < K; i++) {
+
+                arr[i] = br.readLine().toCharArray();
+
+            }
+
+ 
+
+            int[] distSum = new int[K]; // 거리 누적합
+
+            int[] dist = new int[K]; // 세로줄 1개당 최단거리 계산할 임시 배열
+
+ 
+
+            for (int i = 0; i < N; i++) {
+
+                ArrayDeque<Integer> queue = new ArrayDeque<>();
+
+                Arrays.fill(dist, K); // INF 값으로 초기화 // 세로줄의 최단거리의 MAX 값은 K 를 넘어갈 수 없다.
+
+ 
+
+                // BFS 탐색 시작 지점 모두 Queue 에 넣고, 거리 0 으로 세팅
+
+                for (int j = 0; j < K; j++) {
+
+                    if (arr[j][i] == '1') {
+
+                        queue.offer(j); // 시작 지점 Queue 에 넣기
+
+                        dist[j] = 0; // 시작 지점까지 최단거리는 0
+
+                    }
+
+                }
+
+ 
+
+                // BFS 탐색 시작
+
+                while (!queue.isEmpty()) {
+
+                    int now = queue.poll();
+
+ 
+
+                    // 위 아래 탐색
+
+                    for (int j = 0; j < 2; j++) {
+
+                        int next = now + rx[j];
+
+ 
+
+                        // 회전 형태가 되도록 양쪽 끝 값 변경
+
+                        if (next < 0)
+
+                            next = K - 1;
+
+                        else if(next == K)
+
+                            next = 0;
+
+ 
+
+                        // 초기값이 아니면 방문한 정점임. 따라서 초기값이면 아직 방문 안한 정점
+
+                        if (dist[next] == K) {
+
+                            queue.offer(next);
+
+                            dist[next] = dist[now] + 1;
+
+                        }
+
+                    }
+
+                }
+
+ 
+
+                // 구해진 거리의 누적합을 구함
+
+                for (int j = 0; j < K; j++) {
+
+                    distSum[j] += dist[j];
+
+                }
+
+            }
+
+ 
+
+            int result = 1000001; // N * K 는 100만을 넘지 않는다.
+
+ 
+
+            // 각 K칸의 거리 누적합 중에서 최소값이 답이된다.
+
+            for (int i : distSum) {
+
+                result = Math.min(result, i);
+
+            }
+
+ 
+
+            System.out.println("#" + tc + " " + result);
+
+ 
+
+        }
+
+    }
+
+ 
+
+}
