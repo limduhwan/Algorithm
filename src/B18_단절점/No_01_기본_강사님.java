@@ -33,7 +33,7 @@ import java.util.StringTokenizer;
 
  */
 
-public class No_01_기본 {
+public class No_01_기본_강사님 {
 
     private static ArrayList<Integer>[] adjList;
     private static int[] order;
