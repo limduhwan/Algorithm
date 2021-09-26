@@ -48,4 +48,7 @@ public class No_03_Sorting {
 //    Int.compare(this.weight - o.weight);
 //    Long.compare(this.weight - o.weight);
 
+
+//    Arrays.sort할 때 바로 객체를 정렬하기
+//    Comparable에서 compareTo정렬
 }
