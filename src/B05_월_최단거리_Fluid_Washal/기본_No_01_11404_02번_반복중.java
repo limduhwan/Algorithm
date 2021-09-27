@@ -45,62 +45,77 @@ import java.util.StringTokenizer;
 //7 4 10 6 0
 //https://pangsblog.tistory.com/90
 //https://www.acmicpc.net/problem/11404
-public class 기본_No_01_11404_01번_반복중 {
-    static int cityCount;
-    static int[][] distance;
-    static final int INF = 1000000000;
+public class 기본_No_01_11404_02번_반복중 {
 
+    static int[][] resultArr, Arr;
+    static int cityCount;
+    static int busCount;
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("No_11404.txt"));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st = null;
 
         cityCount = Integer.parseInt(br.readLine());
+        busCount = Integer.parseInt(br.readLine());
 
-        int busCount = Integer.parseInt(br.readLine());
+        resultArr = new int[cityCount+1][cityCount+1];
+        Arr = new int[cityCount+1][cityCount+1];
 
-        distance = new int[cityCount+1][cityCount+1];
-
-        for (int i = 1; i <=cityCount ; i++) {
-            for (int j = 1; j <=cityCount ; j++) {
-                if(i == j) continue;
-                distance[i][j] = INF;
+        for (int i = 1; i <= cityCount; i++) {
+            for (int j = 1; j <= cityCount ; j++) {
+                if( i == j) {
+                    continue;
+                }
+                //*** Integer.MAX_VALUE는 안됨!!!
+                resultArr[i][j] = 1000000000;
+//                resultArr[i][j] = Integer.MAX_VALUE-1;
             }
         }
 
+//        System.out.println(Integer.MAX_VALUE);
         for (int i = 1; i <= busCount ; i++) {
             st = new StringTokenizer(br.readLine());
-            int u = Integer.parseInt(st.nextToken());
-            int v = Integer.parseInt(st.nextToken());
-            int val = Integer.parseInt(st.nextToken());
 
-            distance[u][v] = Math.min(distance[u][v], val);
+            int from  = Integer.parseInt(st.nextToken());
+            int to = Integer.parseInt(st.nextToken());
+            int cost = Integer.parseInt(st.nextToken());
+
+            resultArr[from][to] = Math.min(resultArr[from][to], cost);
         }
 
-        floydMarshall();
-        print();
-    }
+        fluid();
 
-    public static void floydMarshall() {
-        for (int k = 1; k <= cityCount ; k++) {
-            for (int i = 1; i <= cityCount ; i++) {
-                for (int j = 1; j <= cityCount ; j++) {
-                    distance[i][j] = Math.min(distance[i][k] + distance[k][j], distance[i][j]);
-                }
-            }
-        }
-    }
+//        for (int i = 1; i < cityCount; i++) {
+//            for (int j = 1; j < cityCount; j++) {
+//                System.out.println(resultArr[i][j]);
+//            }
+//        }
 
-    public static void print() {
         StringBuffer sb = new StringBuffer();
         for(int i = 1; i <=cityCount; i++){
             for(int j = 1; j <= cityCount; j++) {
-                if(distance[i][j] >= INF) sb.append("0 ");
-                else sb.append(distance[i][j] + " ");
+                if(resultArr[i][j] >= 1000000000) sb.append("0 ");
+                else sb.append(resultArr[i][j] + " ");
             }
             sb.append("\n");
         }
 
         System.out.println(sb.toString());
+    }
+
+    static void fluid(){
+        for (int k = 1; k <= cityCount; k++) {
+            for (int i = 1; i <= cityCount; i++) {
+                for (int j = 1; j <= cityCount; j++) {
+                    if( resultArr[i][j] > resultArr[i][k]+resultArr[k][j] ){
+                        resultArr[i][j] = resultArr[i][k]+resultArr[k][j];
+                    }
+
+//                    resultArr[i][j] = Math.min(resultArr[i][k] + resultArr[k][j], resultArr[i][j]);
+                }
+            }
+        }
+
+
     }
 }
