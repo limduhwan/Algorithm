@@ -9,8 +9,8 @@ import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 //2
-//6
-//2 1 3
+//6 - 방개수
+//2 1 3 방쌍 코스트
 //1 5 5
 //3 6 2
 //6 5 4
@@ -24,7 +24,7 @@ import java.util.StringTokenizer;
 //#1 2
 //#2 3
 
-public class 문제풀이_Day04_02번_개미굴파기_MST_00_강사님 {
+public class 문제풀이_Day04_02번_개미굴파기_MST_00_강사님_어렵다 {
 
     static ArrayList<point> map[];
     static int N;

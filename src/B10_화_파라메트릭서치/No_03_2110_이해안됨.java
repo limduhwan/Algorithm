@@ -1,4 +1,4 @@
-package B10_월_파라메트릭서치;
+package B10_화_파라메트릭서치;
 
 //https://coding-food-court.tistory.com/107
 
