@@ -1,4 +1,4 @@
-package B10_월_파라메트릭서치;
+package B10_화_파라메트릭서치;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

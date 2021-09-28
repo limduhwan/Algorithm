@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.*;
 import java.util.*;
 
-//2
-//4 3 2
+//2 - tc
+//4 3 2 - N지점수  M 간선정보  K K번째 방문 지점
 //1 2 2 1
 //2 3 3 4
 //3 4 5 4
@@ -17,7 +17,7 @@ import java.util.*;
 
 //4일차 6/7
 //18:18
-public class 문제풀이_Day04_03번_조약돌게임_위상정렬_피큐_정렬_00_강사님 {
+public class 문제풀이_Day04_03번_조약돌게임_위상정렬_피큐_정렬_00_강사님_어렵다 {
 
     static BufferedWriter bw;
     static StringTokenizer st;
