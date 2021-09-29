@@ -34,10 +34,20 @@ public class Comparable_ {
         public int compareTo(Player o) {
 //            System.out.println(this.score +"  /  "+o.score);
             if(this.score == o.score){
-                return Integer.compare(this.name, o.name);
+                return Integer.compare(this.name, o.name); //오름차순
+//                return 1; // 양수이면 오름차순
             }else{
-                return o.score - this.score;
+//                return o.score - this.score; //내림차순
+                return -1; //음수이면 내림차순
             }
+
+//            if (this.score > o.score) {
+//                return 1;
+//            } else if (this.score == o.score) {
+//                return 0;
+//            } else {
+//                return -1;
+//            }
         }
     }
 }

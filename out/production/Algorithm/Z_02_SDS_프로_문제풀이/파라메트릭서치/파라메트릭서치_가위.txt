@@ -1,294 +1,142 @@
 
-import java.io.BufferedReader;
-
-import java.io.IOException;
-
-import java.io.InputStreamReader;
-
-import java.util.Arrays;
+import java.io.*;
 
 import java.util.StringTokenizer;
 
- 
 
-/*
 
-김희성 프로(SW역량강화TF)
+public class Solution {
 
-알고리즘 유형 : 구간 트리 (인덱스 트리, 세그먼트 트리)
 
- 
 
-풀이
+    static int T,N,K;
 
-1. 공의 숫자로 트리를 구성하기에는 범위가 너무 넓기 때문에
+    static int min,max;
 
-철수와 민수의 공을 합쳐서 0 ~ N 으로 공의 숫자를 치환한다. (좌표압축)
+    static int[] dp;
 
-2. 치환한 숫자 만큼의 범위로 구간합 트리를 구성한다.
+    static int result;
 
-3. 던질 공은 트리에서 k번째 수 찾기를 이용해서 찾고,
 
-얻는 점수는 트리에서 0 ~ k - 1 구간합 Query 를 한다.
-
- 
-
-죠르디는 사랑입니다♥
-
- */
-
-public class 기출_공놀이 {
-
- 
-
-    private static class Ball {
-
-        boolean isA; // 누구의 공인지 철수의 공이면 true 민수의 공이면 false
-
-        int num;
-
-        int idx;
-
- 
-
-        public Ball(boolean isA, int num) {
-
-            this.isA = isA;
-
-            this.num = num;
-
-        }
-
-    }
-
- 
-
-    private static int[] a_tree, b_tree; // 철수, 민수의 인덱스 트리
-
-    private static int s_idx;
-
- 
 
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        StringTokenizer st, st1;
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
- 
+        StringTokenizer st;
 
-        int T = Integer.parseInt(br.readLine());
+        T = Integer.parseInt(br.readLine());
 
- 
-
-        for (int tc = 1; tc <= T; tc++) {
+        for (int tc = 1; tc <= T ; tc++) {
 
             st = new StringTokenizer(br.readLine());
 
-            int N = Integer.parseInt(st.nextToken()); // 철수와 민수가 가진 공의 수
+            N = Integer.parseInt(st.nextToken());
 
-            int M = Integer.parseInt(st.nextToken()); // 공놀이 횟수
+            K = Integer.parseInt(st.nextToken());
 
- 
 
-            Ball[] balls = new Ball[N * 2]; // 철수와 민수가 가진 공을 합친 배열
 
- 
+            dp = new int[N+1];
+
+            result = 0;
+
+
 
             st = new StringTokenizer(br.readLine());
 
-            st1 = new StringTokenizer(br.readLine());
+            for(int i=1; i<= N; i++){
 
- 
-
-            for (int i = 0; i < N; i++) {
-
-                balls[i] = new Ball(true, Integer.parseInt(st.nextToken()));
-
-                balls[i + N] = new Ball(false, Integer.parseInt(st1.nextToken()));
+                dp[i] = Integer.parseInt(st.nextToken());
 
             }
 
- 
 
-            Arrays.sort(balls, ((o1, o2) -> Integer.compare(o1.num, o2.num)));
 
- 
+            int l = 0;
 
-            // 중복 제거 후 좌표 압축
+            int r = 1000000;
 
-            int cnt = 0;
 
-            for (int i = 1; i < N * 2; i++) {
 
-                if (balls[i].num != balls[i - 1].num)
+            while(l <= r){
 
-                    cnt++;
+                int m = (l+r)/2;
 
-                balls[i].idx = cnt;
+                if(solve(m)){
 
-            }
+                    result = m;
 
- 
+                    r = m-1;
 
-            // leaf 노드 시작 지점 계산
+                }else{
 
-            s_idx = 1;
+                    l = m+1;
 
-            while (s_idx < cnt + 1)
-
-                s_idx *= 2;
-
- 
-
-            a_tree = new int[s_idx * 2];
-
-            b_tree = new int[s_idx * 2];
-
- 
-
-            for (int i = 0; i < N * 2; i++) {
-
-                // 철수의 공이면 철수의 트리를 업데이트, 민수의 공이면 민수의 트리를 업데이트
-
-                update(balls[i].idx, 1, balls[i].isA ? a_tree : b_tree);
+                }
 
             }
 
- 
 
-            long a_score = 0, b_score = 0;
 
- 
+            bw.write("#"+tc+ " " + result+"\n");
 
-            for (int i = 0; i < M; i++) {
 
-                st = new StringTokenizer(br.readLine());
 
-                int a = Integer.parseInt(st.nextToken());
 
-                int b = Integer.parseInt(st.nextToken());
-
- 
-
-                // 철수의 트리에서 k번째 수 찾기 (찾으면서 동시에 트리에 공 추가/제거)
-
-                int kth = search(a, a_tree, b_tree);
-
-                // 찾은 수 보다 작은 공의 갯수 0 ~ kth - 1 구간을 민수의 트리에서 쿼리
-
-                a_score += query(0, kth - 1, b_tree);
-
-                // 아래는 위의 반대로
-
-                kth = search(b, b_tree, a_tree);
-
-                b_score += query(0, kth - 1, a_tree);
-
-            }
-
- 
-
-            System.out.println("#" + tc + " " + a_score + " " + b_score);
 
         }
 
-    }
+        bw.flush();bw.close();
 
- 
 
-    // 인덱스 트리
-
-    private static int query(int left, int right, int[] indexTree) {
-
-        left += s_idx;
-
-        right += s_idx;
-
- 
-
-        int sum = 0;
-
- 
-
-        while (left <= right) {
-
-            if (left % 2 == 1) // 시작하는 부분이 홀수 일 때
-
-                sum += indexTree[left];
-
-            if (right % 2 == 0) // 끝나는 부분이 짝수 일 때
-
-                sum += indexTree[right];
-
- 
-
-            left = (left + 1) >> 1; // left = (left + 1) / 2;
-
-            right = (right - 1) >> 1; // right = (right - 1) / 2;
-
-        }
-
- 
-
-        return sum;
 
     }
 
- 
 
-    private static void update(int idx, int diff, int[] indexTree) {
 
-        idx += s_idx;
+   public static boolean solve(int diff){
 
-        while (idx != 0) {
 
-            indexTree[idx] += diff;
 
-            idx >>= 1;
+       int cnt = 0;
 
-        }
+       min = 10000000; max = 0;
 
-    }
 
- 
 
-    // K 번째 수 찾기
+       for(int i = 1; i <= N; i++){
 
-    private static int search(int k, int[] from_tree, int[] to_tree) {
+           if(min > dp[i])
 
-        int idx = 1;
+               min = dp[i];
 
-        // s_idx = 리프노드의 시작점이니
+           if(max < dp[i])
 
-        while (idx < s_idx) {
+               max = dp[i];
 
-            from_tree[idx]--; // 던지는 쪽 트리(idx)에서 1개 제거
+           if(max - min > diff){
 
-            to_tree[idx]++; // 받는 쪽 트리(idx)에 1개 추가
+               cnt++;
 
-            idx *= 2;
+               min = max = dp[i];
 
-            if (from_tree[idx] < k) { // 오른쪽에 있으면 왼쪽 값을 빼주고 오른쪽으로 내려간다.
+               if(cnt == K+1)
 
-                k -= from_tree[idx];
+                   return false;
 
-                idx++;
+           }
 
-            }
+       }
 
-        }
 
- 
 
-        from_tree[idx]--; // 던지는 쪽 트리(leaf)에서 1개 제거
+       return true;
 
-        to_tree[idx]++; // 받는 쪽 트리(leaf)에 1개 추가
+   }
 
-        return idx - s_idx;
 
-    }
-
- 
 
 }
