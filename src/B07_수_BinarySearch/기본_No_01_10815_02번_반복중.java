@@ -25,61 +25,55 @@ import java.util.StringTokenizer;
 
 //https://www.acmicpc.net/problem/10815
 //숫자카드
-public class 기본_No_01_10815_01번_반복중 {
-    static int N, M;
-    static int arr[];
+public class 기본_No_01_10815_02번_반복중 {
 
+    static int N, M;
+    static int[] arr;
+    static int MAX_SIZE = 10000000;
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("No_10815.txt"));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
 
         N = Integer.parseInt(br.readLine());
-
         arr = new int[N];
 
-//        System.out.println(N);
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i <N ; i++) {
-            int xxx = Integer.parseInt(st.nextToken());
-//            System.out.println(xxx);
-            arr[i] = xxx;
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        Arrays.sort(arr);
-
         M = Integer.parseInt(br.readLine());
-
-//        System.out.println("M" + M);
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i <M ; i++) {
-            int a = Integer.parseInt(st.nextToken());
+            int target = Integer.parseInt(st.nextToken());
 
-            System.out.println(a);
-            boolean result = binarySearch(a);
-            System.out.println(result);
+            int lb = -1;
+            int ub = MAX_SIZE;
+            int m = 0;
+
+            while(lb+1<ub){
+                m = lb+(ub-lb)/2;
+
+                if(m == target){
+                    System.out.println(target+" 있음");
+                    break;
+                }
+
+                if(fexam(m, target)){
+                    lb = m;
+                }else{
+                    ub = m;
+                }
+            }
         }
     }
 
-    static boolean binarySearch(int num){
-        int start = 0;
-        int end = N-1;
-
-        while(start <= end){
-
-            int mid = (start + end)/2;
-
-            if(num < arr[mid]){
-                end = mid-1;
-            } else if(num > arr[mid]) {
-                start = mid+1;
-            } else if(num == arr[mid]) {
-                return true;
-            }
+    static boolean fexam(int mid_size, int target){
+        if(mid_size < target){
+            return true;
         }
 
         return false;
     }
-
-
 }

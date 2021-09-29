@@ -3,6 +3,7 @@ package B03_수_MergeSort;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.StringTokenizer;
 
 //문제
 //N개의 수가 주어졌을 때, 이를 오름차순으로 정렬하는 프로그램을 작성하시오.
@@ -25,15 +26,16 @@ import java.io.IOException;
 //https://www.youtube.com/watch?v=ctkuGoJPmAE
 //https://do-rang.tistory.com/61
 //https://www.acmicpc.net/problem/2751
-public class 기본_No_01_2751_02번_반복중 {
+public class 기본_No_01_2751_03번_반복중 {
 
+    static int N;
     static int[] arr, result;
     public static void main(String args[]) throws IOException{
         BufferedReader br = new BufferedReader(new FileReader("No_2751.txt"));
 //        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
+        StringTokenizer st;
 
-        int N = Integer.parseInt(br.readLine());
+        N = Integer.parseInt(br.readLine());
 
         arr = new int[N+1];
         result = new int[N+1];
@@ -42,41 +44,33 @@ public class 기본_No_01_2751_02번_반복중 {
             arr[i] = Integer.parseInt(br.readLine());
         }
 
-        mergeSort(1, N);
+        sortMerge(1, N);
 
         for (int i = 1; i <=N ; i++) {
-            sb.append(result[i] + "\n");
+            System.out.println(arr[i]);
         }
-
-        System.out.println(sb);
-
     }
 
-    static void mergeSort(int start, int end){
-        int mid;
-
+    static void sortMerge(int start, int end){
+        //*여기 주의 start == end 자기 자신(1개)면 더이상 쪼갤 게 없으니까
         if(start < end){
-            mid = (start+end)/2;
-            mergeSort(start, mid);
-            mergeSort(mid+1, end);
+            int mid = (start+end)/2;
+
+            sortMerge(start, mid);
+            sortMerge(mid+1, end);
 
             merge(start, mid, end);
         }
-
     }
 
     static void merge(int start, int mid, int end){
-        //lrk
-        //while
-        //for
         int l = start;
         int r = mid+1;
-        //*여기 주의
         int k = start;
 
-        while (l <=mid || r<=end){
-            if(l <=mid && r<=end){
-                //*여기 주의
+        //*mid, end 기준으로 생각한다.
+        while( l<= mid || end >= r ){
+            if( l <= mid && end >= r){
                 if(arr[l] <= arr[r]){
                     result[k] = arr[l];
                     l++;
@@ -84,10 +78,20 @@ public class 기본_No_01_2751_02번_반복중 {
                     result[k] = arr[r];
                     r++;
                 }
-            } else if(l <=mid && r > end){
+
+//                위에거나 아래거나 관계없다.
+//                if(arr[l] >= arr[r]){
+//                    result[k] = arr[r];
+//                    r++;
+//                }else{
+//                    result[k] = arr[l];
+//                    l++;
+//                }
+
+            }else if(l <= mid && end < r){
                 result[k] = arr[l];
                 l++;
-            } else {
+            }else if(l > mid && end >= r){
                 result[k] = arr[r];
                 r++;
             }
@@ -95,14 +99,11 @@ public class 기본_No_01_2751_02번_반복중 {
             k++;
         }
 
-        //*여기 주의
-        for (int i = start; i <=end ; i++) {
+        // i<=end 기존 배열을 새롭게 정렬된 값으로 변경
+        for (int i = start; i <= end ; i++) {
             arr[i] = result[i];
         }
 
-
     }
-
-
 
 }

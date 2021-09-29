@@ -23,6 +23,8 @@ public class 기본_No_02_Collections_Binarysearch {
         // 즉, -5를리턴하게 됩니다.
         index = Collections.binarySearch(al, 13);
         System.out.println(index);
+
+        System.out.println( Math.abs(Collections.binarySearch(al, 13) + 1));
     }
 
 //    이걸 외워야 함
