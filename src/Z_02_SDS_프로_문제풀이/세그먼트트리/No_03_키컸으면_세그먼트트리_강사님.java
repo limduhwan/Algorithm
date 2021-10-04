@@ -34,7 +34,7 @@ import java.util.StringTokenizer;
 
 
 // 구간트리 (인덱스 트리, 세그먼트 트리)
-public class No_02_키컸으면_세그먼트트리_강사님 {
+public class No_03_키컸으면_세그먼트트리_강사님 {
     // Input (키)를 저장하기 위한 클래스
     // 키 순으로 정렬이 필요하며, 정렬된 데이터의 순서(idx)가 Pair 로 움직여야함
     private static class Input implements Comparable<Input> {

@@ -157,7 +157,7 @@ public class No_01_거상의꿈_LCA_내코드에재맞춤 {
             y = temp;
         }
 
-        for (int i = K; i >=0 ; i--) {
+        for (int i = K-1; i >=0 ; i--) {
             if(depth[y] - depth[x] >= (1<<i)){
                 y = parent[i][y];
             }
@@ -165,7 +165,7 @@ public class No_01_거상의꿈_LCA_내코드에재맞춤 {
 
         if(x==y) return x;
 
-        for (int i = K; i >= 0 ; i--) {
+        for (int i = K-1; i >= 0 ; i--) {
             if(parent[i][x] != parent[i][y]) {
                 x = parent[i][x];
                 y = parent[i][y];
