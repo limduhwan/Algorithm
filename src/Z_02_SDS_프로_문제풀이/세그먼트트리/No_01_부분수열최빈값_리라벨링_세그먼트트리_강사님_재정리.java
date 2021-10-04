@@ -35,9 +35,11 @@ import java.util.StringTokenizer;
 //#1 3 2
 //#2 10 1
 
+//21년 3분기 세그먼트(인덱스)트리 응용 강의 00:10
 public class No_01_부분수열최빈값_리라벨링_세그먼트트리_강사님_재정리 {
     private static int[] indexTree;
     private static int[] orgNum;
+    static int[] segTree;
 
     public static void main(String[] args) throws IOException {
 //        System.setIn(new FileInputStream("sample/부분수열의최빈값.txt"));
@@ -57,6 +59,7 @@ public class No_01_부분수열최빈값_리라벨링_세그먼트트리_강사�
 
             indexTree = new int[s_idx * 2]; // 입력 값의 Max Count 를 저장할 구간 최대 값 트리
             orgNum = new int[s_idx * 2]; // 실제 입력 값을 저장할 트리
+            segTree = new int[N*4];
 
             int[] input = new int[N + 1];
             HashMap<Integer, Integer> map = new HashMap<>();
@@ -126,6 +129,21 @@ public class No_01_부분수열최빈값_리라벨링_세그먼트트리_강사�
             idx >>= 1;
         }
     }
+
+//    static int update_(int node, int start, int end, int index, int val){
+//        if( index < start || end < index){
+//            return indexTree[node];
+//        }
+//
+//        if( start == end ){
+//            return indexTree[node] = indexTree[node] + val;
+//        }
+//
+//        int mid = (start+end)/2;
+//
+//        return indexTree[node] = update(node*2, start, mid, index, val)
+//                +update(node*2+1, mid+1, end, index, val);
+//    }
 
     // 항상 전체 구간 쿼리만 수행하기 때문에 사실상 필요없는 코드임
     // 구간의 최대 값을 query 하는 로직을 구성하면서
