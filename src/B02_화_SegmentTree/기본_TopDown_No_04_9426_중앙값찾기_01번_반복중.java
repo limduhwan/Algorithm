@@ -47,7 +47,7 @@ import java.util.StringTokenizer;
 
 //60
 
-public class 기본_No_04_9426_중앙값찾기_01번_반복중 {
+public class 기본_TopDown_No_04_9426_중앙값찾기_01번_반복중 {
 
     static int[] segTree;
     static int MAX = 65535;

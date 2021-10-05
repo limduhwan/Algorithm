@@ -16,7 +16,7 @@ import java.util.StringTokenizer;
 //90
 //100
 
-public class 기본_No_K번째수 {
+public class 기본_TopDown_No_K번째수 {
 
     static long[] segTree;
     static int MAX = 65535;

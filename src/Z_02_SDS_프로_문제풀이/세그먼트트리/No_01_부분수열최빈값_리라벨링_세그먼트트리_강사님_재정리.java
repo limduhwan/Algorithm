@@ -130,21 +130,6 @@ public class No_01_부분수열최빈값_리라벨링_세그먼트트리_강사�
         }
     }
 
-//    static int update_(int node, int start, int end, int index, int val){
-//        if( index < start || end < index){
-//            return indexTree[node];
-//        }
-//
-//        if( start == end ){
-//            return indexTree[node] = indexTree[node] + val;
-//        }
-//
-//        int mid = (start+end)/2;
-//
-//        return indexTree[node] = update(node*2, start, mid, index, val)
-//                +update(node*2+1, mid+1, end, index, val);
-//    }
-
     // 항상 전체 구간 쿼리만 수행하기 때문에 사실상 필요없는 코드임
     // 구간의 최대 값을 query 하는 로직을 구성하면서
     // 그 최대 값의 실제 입력 값을 구해야한다.

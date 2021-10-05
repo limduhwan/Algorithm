@@ -25,7 +25,7 @@ import java.util.StringTokenizer;
 //https://www.youtube.com/watch?v=ahFB9eCnI6c
 //https://steady-coding.tistory.com/127
 //https://www.acmicpc.net/problem/10868
-public class 기본_No_01_10868 {
+public class 기본_TopDown_No_01_10868 {
     static int N, M;
     static int[] arr, minTree;
 

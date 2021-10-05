@@ -55,3 +55,11 @@ static void update(int node, int start, int end, int index, int dif){
 
 https://platform.samsungcic.com/#/contents/home/CONT2021071916141315
 26분:40초
+
+21년 3분기 세그먼트(인덱스)트리 기본강의 3차 25:15분 세그트리 이분탐색!
+
+[리라벨링]
+21년 3분기 세그먼트(인덱스)트리 응용 강의
+
+리라벨링 개념 06:24
+=> 정렬하고 다시 값을 부여하는 것!

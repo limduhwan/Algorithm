@@ -21,7 +21,7 @@ import java.util.StringTokenizer;
 //M개의 줄에 입력받은 순서대로 각 a, b에 대한 답을 최솟값, 최댓값 순서로 출력한다.
 
 //https://www.acmicpc.net/problem/2357
-public class 기본_No_02_2357_min_max_01번_반복중 {
+public class 기본_TopDown_No_02_2357_min_max_01번_반복중 {
     static int N, M;
     static int[] minTree, maxTree, arr;
 

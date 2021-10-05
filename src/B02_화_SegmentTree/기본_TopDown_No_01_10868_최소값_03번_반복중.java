@@ -20,16 +20,37 @@ import java.util.StringTokenizer;
 //출력
 //M개의 줄에 입력받은 순서대로 각 a, b에 대한 답을 출력한다.
 
+//10 4
+//75
+//30
+//100
+//38
+//50
+//51
+//52
+//20
+//81
+//5
+//1 10
+//3 5
+//6 9
+//8 10
+
+//5
+//38
+//20
+//5
+
 //세그먼트 트리
 //https://www.youtube.com/watch?v=075fcq7oCC8
 //https://www.youtube.com/watch?v=ahFB9eCnI6c
 //https://steady-coding.tistory.com/127
 //https://www.acmicpc.net/problem/10868
-public class 기본_No_01_10868_최소값_01번_반복중 {
+public class 기본_TopDown_No_01_10868_최소값_03번_반복중 {
     static int N, M;
     static int[] arr, segTree;
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("No_10868.txt"));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st;
@@ -38,63 +59,60 @@ public class 기본_No_01_10868_최소값_01번_반복중 {
         N = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
 
-        System.out.println(N+" "+M);
+//        System.out.println(N +"   " +M);
 
         arr = new int[N+1];
         segTree = new int[N*4];
 
-        for(int i = 1; i<=N; i++){
+        for (int i = 1; i <= N; i++) {
             st = new StringTokenizer(br.readLine());
 
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        init(1, 1, N);
 
+        initSegTree(1, 1, N);
 
-        for(int i=1; i<=M; i++){
+        for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
+
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
 
-            int result = query(1, 1, N, a, b);
+            System.out.println(query(1, 1, N, a, b));
 
-            System.out.println(result);
         }
-
-
     }
 
-    static int init(int node, int start, int end){
+    static int initSegTree(int node, int start, int end){
         if(start == end){
             return segTree[node] = arr[start];
         }
 
         int mid = (start+end)/2;
 
-        return segTree[node] = Math.min(init(node*2, start, mid),
-                                        init(node*2+1, mid+1, end));
-
+        return segTree[node] = Math.min(
+          initSegTree(node*2, start, mid)
+          ,initSegTree(node*2+1, mid+1, end)
+        );
     }
 
-    //**쿼리해서 찾는 값은 노드가 아니라 값!이다. 그래서 segTree[]의 값은 변하지 않는다!
     static int query(int node, int start, int end, int left, int right){
-        if( right < start || end < left){
+        if(right < start || end < left){
             return Integer.MAX_VALUE;
-//            return segTree[node] = Integer.MAX_VALUE;
         }
 
-        if( left <= start && end <= right){
+        if( left <= start && end <= right ){
             return segTree[node];
         }
 
-        int mid = (start + end) /2;
+        int mid = (start+end)/2;
 
-        //**여기 주의
-        return Math.min(query(node*2, start, mid, left, right)
-                , query(node*2+1, mid+1, end, left, right));
+        return segTree[node] = Math.min(
+                query(node*2, start, mid, left, right)
+                ,query(node*2+1, mid+1, end, left, right)
+        );
     }
-
 
 
 }

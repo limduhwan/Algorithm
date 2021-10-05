@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 // 중앙값 찾기
 //https://velog.io/@imfksh/%EB%B0%B1%EC%A4%80-9426-Java
 //https://www.acmicpc.net/problem/9426
-public class 기본_No_04_9426_중앙값찾기 {
+public class 기본_TopDown_No_04_9426_중앙값찾기 {
 
     static int[] segTree;
     static int MAX = 65535;

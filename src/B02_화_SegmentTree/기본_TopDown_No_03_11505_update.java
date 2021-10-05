@@ -24,28 +24,12 @@ package B02_화_SegmentTree;
 import java.io.*;
 import java.util.StringTokenizer;
 
-//5 2 2
-//1
-//2
-//3
-//4
-//5
-//1 3 6
-//2 2 5
-//1 5 2
-//2 3 5
-
-//240
-//48
-
-//https://www.acmicpc.net/problem/11505
 //https://wellbell.tistory.com/57
-public class 기본_No_03_11505_update_02번_반복중 {
+public class 기본_TopDown_No_03_11505_update {
     static int N, K, M;
-    static int d = 1000000007;
     static int[] arr;
-    static int[] segTree;
-
+    static long[] tree;
+    static int d = 1000000007;
     public static void main(String[] args) throws IOException{
         BufferedReader br = new BufferedReader(new FileReader("No_11505.txt"));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -53,73 +37,75 @@ public class 기본_No_03_11505_update_02번_반복중 {
 
         st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        K = Integer.parseInt(st.nextToken());
         M = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
 
         arr = new int[N+1];
-        segTree= new int[N*4];
+        tree = new long[N*4];
 
-        for (int i = 1; i <=N ; i++) {
+        for(int i=1; i<=N; i++){
             arr[i] = Integer.parseInt(br.readLine());
         }
 
-        initSegTree(1, 1, N);
+        init(1, 1, N);
 
-        for (int i = 0; i <K+M ; i++) {
+        for(int i=0; i<M+K; i++){
             st = new StringTokenizer(br.readLine());
-
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             int c = Integer.parseInt(st.nextToken());
 
             if(a == 1){
-                updateSegTree(1, 1, N, b, c);
-            }else{
+                update(1, 1, N, b, c);
+            } else {
                 System.out.println(query(1, 1, N, b, c));
             }
         }
+
     }
 
-    static int query(int node, int start, int end, int left, int right){
-        if(right < start || end < left){
+    static long query(int node, int start, int end, int left, int right){
+        if(right < start || end < left) {
             return 1;
         }
 
-        if( left <= start && end <= right){
-            return segTree[node];
-        }
-
-        int mid = (start + end)/2;
-
-        return segTree[node] = query(node*2, start, mid, left, right)
-                *query(node*2+1, mid+1, end, left, right)%d;
-    }
-
-    static int updateSegTree(int node, int start, int end, int index, int val){
-        if( index < start || end < index){
-            return segTree[node];
-        }
-
-        if(start == end){
-            return segTree[node] = val;
+        if(left <= start && end <= right){
+           return tree[node];
         }
 
         int mid = (start+end)/2;
-
-        return segTree[node] = updateSegTree(node*2, start, mid, index, val)
-                *updateSegTree(node*2+1, mid+1, end, index, val)%d;
+        return tree[node] = query(node*2, start, mid, left, right)
+                            *query(node*2+1, mid+1, end, left, right)%d;
+//        바로 리턴시켜도 상관없음
+//        return query(node*2, start, mid, left, right)
+//                *query(node*2+1, mid+1, end, left, right)%d;
     }
 
-    static int initSegTree(int node, int start, int end){
+    static long update(int node, int start, int end, int index, int c){
+        if(index < start || end < index){
+            return tree[node];
+        }
+
         if(start == end){
-            return segTree[node] = arr[start];
+            return tree[node] = c;
+        }
+
+        int mid = (start+end) /2;
+        return tree[node] = update(node*2, start, mid, index, c)
+                           *update(node*2+1, mid+1, end, index, c)%d;
+
+    }
+
+    static long init(int node, int start, int end){
+        if(start == end){
+            return tree[node] = arr[start];
         }
 
         int mid = (start+end)/2;
-
-        return segTree[node] = (initSegTree(node*2, start, mid)
-                *initSegTree(node*2+1, mid+1, end))%d;
+        return tree[node] = init(node*2, start, mid)
+                * init(node*2+1, mid+1, end)%d;
     }
+
 
 }
 
