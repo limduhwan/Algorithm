@@ -1,0 +1,232 @@
+
+import java.io.*;
+
+import java.util.Arrays;
+
+import java.util.StringTokenizer;
+
+ 
+
+// 백준 최솟값과 최댓값 (https://www.acmicpc.net/problem/2357)
+
+public class IndexTree_최대최소값 {
+
+ 
+
+    private static long[] indexTree; // 인덱스 트리 데이터 저장
+
+    private static long[] indexMaxTree; // 인덱스 트리 최대값 데이터 저장
+
+ 
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int N = Integer.parseInt(st.nextToken());
+
+        int M = Integer.parseInt(st.nextToken());
+
+ 
+
+        // leaf 노드 시작 지점 계산
+
+        int s_idx = 1;
+
+        while (s_idx < N)
+
+            s_idx <<= 1;
+
+ 
+
+        indexTree = new long[s_idx * 2];
+
+ 
+
+        s_idx--;
+
+ 
+
+        Arrays.fill(indexTree, Long.MAX_VALUE);
+
+        indexMaxTree = new long[s_idx * 2];
+
+ 
+
+        for (int i = 1; i <= N; i++) {
+
+            indexMaxTree[i + s_idx] = indexTree[i + s_idx] = Long.parseLong(br.readLine());
+
+//            update(i + s_idx, Long.parseLong(br.readLine()));
+
+        }
+
+ 
+
+        init(s_idx + 1, N);
+
+ 
+
+        for (int i = 0; i < M; i++) {
+
+            st = new StringTokenizer(br.readLine());
+
+            int a = Integer.parseInt(st.nextToken()) + s_idx;
+
+            int b = Integer.parseInt(st.nextToken()) + s_idx;
+
+            long min = query(a, b);
+
+            long max = queryMax(a, b);
+
+            bw.write(min + " " + max + "\n");
+
+        }
+
+        bw.flush();
+
+ 
+
+    }
+
+ 
+
+    // 인덱스 트리
+
+    private static void init(int start, int end) {
+
+        for (int i = start; i < start + end; i++) {
+
+            int P = i >> 1; // i / 2
+
+            while (P != 0) {
+
+                indexTree[P] = Math.min(indexTree[i], indexTree[P]);
+
+                indexMaxTree[P] = Math.max(indexMaxTree[i], indexMaxTree[P]);
+
+                P >>= 1;
+
+            }
+
+        }
+
+    }
+
+ 
+
+    // 밑에서부터 시작과 끝이 올라와서 만나게 된다면
+
+    // 현재 노드가 그들의 부모인 것이고,
+
+    // 현재 노드가 가지고 있는 값은 하위 모든 노드들의 합이다.
+
+    private static long query(int left, int right) {
+
+        long min = Long.MAX_VALUE;
+
+ 
+
+        while (left <= right) {
+
+            // 시작하는 부분이 홀수 일 때
+
+            if (left % 2 == 1)
+
+                min = Math.min(min, indexTree[left]);
+
+            // 끝나는 부분이 짝수 일 때
+
+            if (right % 2 == 0)
+
+                min = Math.min(min, indexTree[right]);
+
+ 
+
+            // left = (left + 1) / 2;
+
+            left = (left + 1) >> 1;
+
+            // right = (right - 1) / 2;
+
+            right = (right - 1) >> 1;
+
+        }
+
+ 
+
+        return min;
+
+    }
+
+ 
+
+    private static long queryMax(int left, int right) {
+
+        long max = 0;
+
+ 
+
+        while (left <= right) {
+
+            // 시작하는 부분이 홀수 일 때
+
+            if (left % 2 == 1)
+
+                max = Math.max(max, indexMaxTree[left]);
+
+            // 끝나는 부분이 짝수 일 때
+
+            if (right % 2 == 0)
+
+                max = Math.max(max, indexMaxTree[right]);
+
+ 
+
+            // left = (left + 1) / 2;
+
+            left = (left + 1) >> 1;
+
+            // right = (right - 1) / 2;
+
+            right = (right - 1) >> 1;
+
+        }
+
+ 
+
+        return max;
+
+    }
+
+ 
+
+    private static void update(int idx, long val) {
+
+        indexTree[idx] = val;
+
+        indexMaxTree[idx] = val;
+
+        idx >>= 1;
+
+        while (idx > 0) {
+
+            indexTree[idx] = Math.min(indexTree[idx * 2], indexTree[idx * 2 + 1]);
+
+            indexMaxTree[idx] = Math.max(indexMaxTree[idx * 2], indexMaxTree[idx * 2 + 1]);
+
+            // idx /= 2;
+
+            idx >>= 1;
+
+        }
+
+    }
+
+ 
+
+}

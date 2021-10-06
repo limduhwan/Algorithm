@@ -1,0 +1,142 @@
+
+import java.io.*;
+
+import java.util.ArrayDeque;
+
+import java.util.StringTokenizer;
+
+ 
+
+// 백준 9426번 중앙값 측정
+
+// https://www.acmicpc.net/problem/9426
+
+public class IndexTree_K번째수찾기 {
+
+ 
+
+    private static final int MAX = 65535;
+
+ 
+
+    private static int[] indexTree; // 인덱스 트리 데이터 저장
+
+    private static int s_idx;
+
+ 
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int N = Integer.parseInt(st.nextToken());
+
+        int K = Integer.parseInt(st.nextToken());
+
+ 
+
+        // leaf 노드 시작 지점 계산
+
+        s_idx = 1;
+
+        while (s_idx < MAX)
+
+            s_idx *= 2;
+
+ 
+
+        indexTree = new int[s_idx * 2];
+
+ 
+
+        ArrayDeque<Integer> q = new ArrayDeque<>();
+
+ 
+
+        long result = 0;
+
+ 
+
+        for (int i = 1; i <= N; i++) {
+
+            int now = Integer.parseInt(br.readLine());
+
+            update(now, 1);
+
+            q.offer(now);
+
+            if (i >= K) {
+
+                result += search((K + 1) / 2);
+
+                int poll = q.poll();
+
+                update(poll, -1);
+
+            }
+
+        }
+
+ 
+
+        bw.write(result + "\n");
+
+        bw.flush();
+
+    }
+
+ 
+
+ 
+
+    // 인덱스 트리
+
+    private static void update(int idx, int diff) {
+
+        idx += s_idx;
+
+        while (idx != 0) {
+
+            indexTree[idx] += diff;
+
+            idx >>= 1;
+
+        }
+
+    }
+
+ 
+
+    // K 번째 수 찾기
+
+    private static int search(int k) {
+
+        int idx = 1;
+
+        // s_idx = 리프노드의 시작점이니
+
+        while (idx < s_idx) {
+
+            idx *= 2;
+
+            if (indexTree[idx] < k) {
+
+                k -= indexTree[idx];
+
+                idx++;
+
+            }
+
+        }
+
+        return idx - s_idx;
+
+    }
+
+ 
+
+}

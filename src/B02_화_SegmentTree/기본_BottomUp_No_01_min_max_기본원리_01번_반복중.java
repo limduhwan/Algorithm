@@ -40,9 +40,8 @@ public class 기본_BottomUp_No_01_min_max_기본원리_01번_반복중 {
             updateTree(i, arr[i]);
         }
 
-//        query(start, end);
+        query(start, end);
 
-        System.out.println(search(100));
     }
 
     static void updateTree(int index, int num){
@@ -75,19 +74,6 @@ public class 기본_BottomUp_No_01_min_max_기본원리_01번_반복중 {
         }
     }
 
-    static int search(int index){
-        int current = 1;
-        while(current < startIdx){
 
-            if(tree[current*2] >= index){
-                current = current*2;
-            }else{
-                index = index - tree[current*2];
-                current = current*2+1;
-            }
-        }
-
-        return current - startIdx + 1;
-    }
 
 }

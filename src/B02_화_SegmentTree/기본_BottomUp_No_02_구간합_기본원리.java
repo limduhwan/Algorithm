@@ -98,19 +98,4 @@ public class 기본_BottomUp_No_02_구간합_기본원리 {
 
         return sum;
     }
-
-    static int search(int index){
-        int current = 1;
-        while(current < startIdx){
-
-            if(tree[current*2] >= index){
-                current = current*2;
-            }else{
-                index = index - tree[current*2];
-                current = current*2+1;
-            }
-        }
-
-        return current - startIdx + 1;
-    }
 }
