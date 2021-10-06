@@ -4,6 +4,13 @@ https://www.acmicpc.net/workbook/view/822
 https://hyeonseong.tistory.com/3
 https://www.acmicpc.net/problemset?sort=ac_desc&algo=65
 
+기본원리 설명
+[2일차] [SW검정] Professional 중급 과정 (4/6)
+https://platform.samsungcic.com/#/contents/home/CONT2021040115688229
+
+구현코드 설명
+[2일차] [SW검정] Professional 중급 과정 (5/6)
+https://platform.samsungcic.com/#/contents/home/CONT2021040115688253
 
 CIC 강의
 https://platform.samsungcic.com/#/contents/home/CONT2021071916141315

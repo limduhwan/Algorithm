@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+//[2일차] [SW검정] Professional 중급 과정 (4/6)
 public class 기본_BottomUp_No_01_min_max_기본원리 {
     static int N;
     static int[] arr, tree;
