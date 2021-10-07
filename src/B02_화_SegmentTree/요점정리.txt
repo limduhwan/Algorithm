@@ -70,3 +70,22 @@ https://platform.samsungcic.com/#/contents/home/CONT2021071916141315
 
 리라벨링 개념 06:24
 => 정렬하고 다시 값을 부여하는 것!
+
+
+*여기 외워두자
+index > 0
+
+start <= end
+
+index < startIdx
+
+*좌표압축
+for (int i = 1; i <= N ; i++) {
+    input[i] = Integer.parseInt(st.nextToken());
+
+    Integer a = map.get(input[i]);
+    if(a == null){
+        a = map.size() + 1;
+        map.put(input[i], a);
+    }
+}

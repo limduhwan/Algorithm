@@ -4,6 +4,13 @@ https://www.acmicpc.net/workbook/view/822
 https://hyeonseong.tistory.com/3
 https://www.acmicpc.net/problemset?sort=ac_desc&algo=65
 
+기본원리 설명
+[2일차] [SW검정] Professional 중급 과정 (4/6)
+https://platform.samsungcic.com/#/contents/home/CONT2021040115688229
+
+구현코드 설명
+[2일차] [SW검정] Professional 중급 과정 (5/6)
+https://platform.samsungcic.com/#/contents/home/CONT2021040115688253
 
 CIC 강의
 https://platform.samsungcic.com/#/contents/home/CONT2021071916141315
@@ -63,3 +70,22 @@ https://platform.samsungcic.com/#/contents/home/CONT2021071916141315
 
 리라벨링 개념 06:24
 => 정렬하고 다시 값을 부여하는 것!
+
+
+*여기 외워두자
+index > 0
+
+start <= end
+
+index < startIdx
+
+*좌표압축
+for (int i = 1; i <= N ; i++) {
+    input[i] = Integer.parseInt(st.nextToken());
+
+    Integer a = map.get(input[i]);
+    if(a == null){
+        a = map.size() + 1;
+        map.put(input[i], a);
+    }
+}

@@ -49,79 +49,70 @@ import java.util.StringTokenizer;
 
 // 백준 9426번 중앙값 측정
 // https://www.acmicpc.net/problem/9426
-public class 기본_BottomUp_No_03_K번째수_기본원리_나에게맞게 {
+public class 기본_BottomUp_No_03_K번째수_기본원리_01번_반복중 {
     private static final int MAX = 65535;
-    private static int[] indexTree; // 인덱스 트리 데이터 저장
-    private static int s_idx;
-    static int K, startIdx, treeN;
+    private static int[] tree; // 인덱스 트리 데이터 저장
+    static int K, startIdx, treeLength, N, Suyul;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("No_9426.txt"));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringTokenizer st;
 
-        int N = Integer.parseInt(st.nextToken());
-        int Kx = Integer.parseInt(st.nextToken());
+        st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        Suyul = Integer.parseInt(st.nextToken());
 
-        // 트리의 Depth K
-        K = (int) Math.ceil(Math.log(MAX) / Math.log(2));
+//        KSLT
+        K = (int) Math.ceil(Math.log(N)/Math.log(2));
 
-        // startIndex
         startIdx = (int) Math.pow(2, K);
 
-        // 트리 배열의 Length
-        treeN = (int) Math.pow(2, K + 1) - 1;
+        treeLength = (int) Math.pow(2, K+1);
 
-        // 트리 배열 생성
-        indexTree = new int[treeN + 1];
+        tree = new int[treeLength+1];
 
-        ArrayDeque<Integer> q = new ArrayDeque<>();
+        ArrayDeque<Integer> queue = new ArrayDeque<>();
 
-        long result = 0;
-
-        for (int i = 1; i <= N; i++) {
+        for (int i = 1; i <= N ; i++) {
             int now = Integer.parseInt(br.readLine());
-            update(now, 1);
-            q.offer(now);
-            if (i >= Kx) {
-                int temp = search((Kx+1) / 2);
-                System.out.println(temp);
-                result += search((Kx + 1) / 2);
-                int poll = q.poll();
-                update(poll, -1);
+            queue.add(now);
+            updateTree(now, 1);
+
+            if(i >= Suyul){
+                int midNode = search((Suyul+1)/2);
+                System.out.println(midNode);
+                int poll = queue.poll();
+                updateTree(poll, -1);
             }
-        }
 
-//        bw.write(result + "\n");
-        bw.flush();
-    }
 
-    // 인덱스 트리
-    private static void update(int idx, int diff) {
-        idx = startIdx + idx-1;
-
-        indexTree[idx] += diff;
-
-        idx = idx/2;
-
-        while (idx != 0) {
-            indexTree[idx] += diff;
-            idx = idx / 2;
         }
     }
 
-    static int search(int k){
-        int idx = 1;
-        while(idx < startIdx){
+    static int search(int k) {
+        int index = 1;
 
-            if(k <= indexTree[idx*2]){
-                idx = idx*2;
-            }else{
-                k = k - indexTree[idx*2];
-                idx = idx*2+1;
+        while (index < startIdx) {
+            if (k <= tree[index * 2]) {
+                index = index * 2;
+            } else {
+                k = k - tree[index * 2];
+                index = index * 2 + 1;
             }
         }
 
-        return idx - startIdx + 1;
+        return index - startIdx + 1;
+    }
+
+    static void updateTree(int index, int diff){
+        index = startIdx + index - 1;
+        tree[index] = tree[index] + diff;
+        index = index / 2;
+        while(index > 0){
+            tree[index] = tree[index] + diff;
+            index = index / 2;
+        }
+
     }
 }
