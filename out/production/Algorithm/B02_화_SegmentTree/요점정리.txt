@@ -53,6 +53,11 @@ static void update(int node, int start, int end, int index, int dif){
     update(node*2+1,mid+1, end,  index, dif);
 }
 
+[index tree Bottom up방식 강의]
+[2일차] [SW검정] Professional 중급 과정 (5/6)
+
+query 31:52
+
 [K번째 수 구하기 원리 (중앙값 등)]
 세그먼트트리에서 K번째를 찾기 위해서는
 나의 왼쪽 자식인 tree[node*2]와 값을 비교해보면 된다

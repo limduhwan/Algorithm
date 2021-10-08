@@ -36,28 +36,30 @@ import java.util.StringTokenizer;
 //#2 10 1
 
 //21년 3분기 세그먼트(인덱스)트리 응용 강의 00:10
-public class No_01_부분수열최빈값_리라벨링_세그먼트트리_강사님_재정리_01번_반복중 {
+public class No_01_부분수열최빈값_리라벨링_세그먼트트리_강사님_재정리_02번_반복중 {
     private static int[] indexTree;
-    private static int[] orgNum;
+    private static int[] orgNumTree;
     static int K, startIdx, treeLength;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("No_부분수열의 최빈값.txt"));
         StringTokenizer st;
+
         int T = Integer.parseInt(br.readLine());
 
-        for (int tc = 1; tc <= T ; tc++) {
-            st = new StringTokenizer(br.readLine());
-            int N = Integer.parseInt(st.nextToken());
-            int Kx = Integer.parseInt(st.nextToken());
+        for (int tc = 1; tc <= 1 ; tc++) {
+           st = new StringTokenizer(br.readLine());
 
-            //KSLT
+           int N = Integer.parseInt(st.nextToken());
+           int Kx = Integer.parseInt(st.nextToken());
+
+           //KSLT
             K = (int) Math.ceil(Math.log(N)/Math.log(2));
             startIdx = (int) Math.pow(2, K);
             treeLength = (int) Math.pow(2, K+1);
 
             indexTree = new int[treeLength+1];
-            orgNum = new int[treeLength+1];
+            orgNumTree = new int[treeLength+1];
 
             int[] input = new int[N+1];
             HashMap<Integer, Integer> map = new HashMap<>();
@@ -66,30 +68,30 @@ public class No_01_부분수열최빈값_리라벨링_세그먼트트리_강사�
             int result_cnt = 0;
 
             st = new StringTokenizer(br.readLine());
-
-            for (int i = 1; i <= N ; i++) {
+            for (int i = 1; i <=N ; i++) {
                 input[i] = Integer.parseInt(st.nextToken());
 
                 Integer a = map.get(input[i]);
+
                 if(a == null){
-                    a = map.size() + 1;
+                    a = map.size()+1;
                     map.put(input[i], a);
                 }
 
                 update(a, 1, input[i]);
 
-                if(i>=Kx){
-//                    int max = orgNum[1];
+                if(i>= Kx){
                     int maxNum = query(1, N);
+                    System.out.println(maxNum);
 
                     if(result_num < maxNum){
                         result_num = maxNum;
                         result_cnt = 1;
-                    } else if(result_num == maxNum){
+                    }else if(result_num == maxNum){
                         result_cnt++;
                     }
 
-                    update(map.get(input[i-Kx+1]), -1, input[i-Kx+1]);
+                    update(map.get(input[i-Kx+1]), -1, input[i]);
                 }
             }
 
@@ -98,37 +100,62 @@ public class No_01_부분수열최빈값_리라벨링_세그먼트트리_강사�
     }
 
     static int query(int start, int end){
-        start = startIdx + start - 1;
+        start = startIdx + start -1;
         end = startIdx + end -1;
+        int maxBindo = 0;
+        int maxNum = 0;
 
         while(start <= end){
+            if(start%2 == 1){
+                if(maxBindo < indexTree[start]){
+                    maxBindo = indexTree[start];
+                    maxNum = orgNumTree[start];
+                }else if(maxBindo == indexTree[start]){
+                    maxNum = Math.max(maxNum, orgNumTree[start]);
+                }
+            }
+
+            if(end%2 == 0){
+                if(maxBindo < indexTree[end]){
+                    maxBindo = indexTree[end];
+                    maxNum = orgNumTree[end];
+                }else if(maxBindo == indexTree[end]){
+                    maxNum = Math.max(maxNum, orgNumTree[end]);
+                }
+            }
 
             start = (start+1)/2;
             end = (end-1)/2;
         }
 
-        return 0;
+        return maxNum;
     }
 
-    static void update(int idx, int val, int num){
-        idx = idx + startIdx -1;
-        indexTree[idx] = indexTree[idx]+val;
-        orgNum[idx] = num;
-        idx = idx / 2;
 
-        while(idx > 0){
-            if(indexTree[idx*2] > indexTree[idx*2+1]){
-                indexTree[idx] = indexTree[idx*2];
-                orgNum[idx] = orgNum[idx*2];
-            } else if(indexTree[idx*2] < indexTree[idx*2+1]) {
-                indexTree[idx] = indexTree[idx*2+1];
-                orgNum[idx] = orgNum[idx*2+1];
-            } else {
-                indexTree[idx] = indexTree[idx*2];
-                orgNum[idx] = Math.max(orgNum[idx*2], orgNum[idx*2+1]);
+
+    static void update(int index, int value, int originNum){
+        index = index +  startIdx -1;
+        indexTree[index] = indexTree[index] + value;
+        orgNumTree[index] = originNum;
+
+        index = index / 2;
+
+        while(index > 0){
+            if(indexTree[index*2] < indexTree[index*2+1]){
+                indexTree[index] = indexTree[index*2+1];
+                orgNumTree[index] = orgNumTree[index*2+1];
+            }else if(indexTree[index*2] > indexTree[index*2+1]){
+                indexTree[index] = indexTree[index*2];
+                orgNumTree[index] = orgNumTree[index*2];
+            }else if(indexTree[index*2] == indexTree[index*2+1]){
+                indexTree[index] = indexTree[index*2+1];
+                orgNumTree[index] = Math.max(orgNumTree[index*2], orgNumTree[index*2+1]);
             }
 
-            idx = idx/2;
+            index = index/2;
         }
+
+
     }
+
 }
