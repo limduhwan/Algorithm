@@ -18,6 +18,7 @@ public class No_05_11438_Ontact {
     public static void main(String[] args) throws Exception {
 //        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedReader br = new BufferedReader(new FileReader("No_11438.txt"));
+
         StringTokenizer st;
         int T = Integer.parseInt(br.readLine());
 
