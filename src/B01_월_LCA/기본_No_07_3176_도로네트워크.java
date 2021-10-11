@@ -42,7 +42,6 @@ package B01_월_LCA;
 
 //https://www.acmicpc.net/problem/3176
 //https://loosie.tistory.com/468  (자세한 해설)
-//https://subbak2.tistory.com/61?category=824830
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -54,7 +53,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 // 3176 도로 네트워크
-public class 기본_No_07_3176_나에게맞춤 {
+public class 기본_No_07_3176_도로네트워크 {
 
     static int N, K, M, min, max;
     static int[] depth;
