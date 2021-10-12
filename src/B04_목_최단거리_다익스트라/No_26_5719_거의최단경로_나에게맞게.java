@@ -1,4 +1,4 @@
-package Z_02_합격_최적화_문제집;
+package B04_목_최단거리_다익스트라;
 //문제
 //요즘 많은 자동차에서는 GPS 네비게이션 장비가 설치되어 있다.
 // 네비게이션은 사용자가 입력한 출발점과 도착점 사이의 최단 경로를 검색해 준다.
@@ -41,9 +41,44 @@ package Z_02_합격_최적화_문제집;
 import java.io.*;
 import java.util.*;
 
+//7 9 -> 장소수, 도로
+//0 6 -> 시작점, 도착점
+//0 1 1
+//0 2 1
+//0 3 2
+//0 4 3
+//1 5 2
+//2 6 4
+//3 6 2
+//4 6 4
+//5 6 1
+//4 6
+//0 2
+//0 1 1
+//1 2 1
+//1 3 1
+//3 2 1
+//2 0 3
+//3 0 2
+//6 8
+//0 1
+//0 1 1
+//0 2 2
+//0 3 3
+//2 5 3
+//3 4 2
+//4 1 1
+//5 1 1
+//3 0 1
+//0 0
+
+//5
+//-1
+//6
 //https://rlaguswhd-organize.tistory.com/15
-public class No_26_5719_못품 {
-    static int N, M, S, D, ANS;
+//다익스트라해주고 최단경로를 지워주고 다시 다익스트라
+public class No_26_5719_거의최단경로_나에게맞게 {
+    static int N, M, S,D;
     static int[] distance;
     static int[][] list;
 
@@ -61,15 +96,15 @@ public class No_26_5719_못품 {
                 break;
             }
 
-            distance = new int[N];
-            list = new int[N][N];
+            distance = new int[N+1];
+            list = new int[N+1][N+1];
 
             st = new StringTokenizer(br.readLine());
             S = Integer.parseInt(st.nextToken());
             D = Integer.parseInt(st.nextToken());
 
             int now, next, cost;
-            for(int i = 0; i<M; i++){
+            for (int i = 1; i <=M ; i++) {
                 st = new StringTokenizer(br.readLine());
                 now = Integer.parseInt(st.nextToken());
                 next = Integer.parseInt(st.nextToken());
@@ -87,65 +122,74 @@ public class No_26_5719_못품 {
             Arrays.fill(distance, Integer.MAX_VALUE);
             distance[S] = 0;
             dijkstra();
-            System.out.println(distance[D] == Integer.MAX_VALUE ? -1 : distance[D]);
-
+            if(distance[D] == Integer.MAX_VALUE){
+                System.out.println("-1");
+            }else {
+                System.out.println(distance[D]);
+            }
         }
     }
 
     static void deleteNode(){
-        Queue<Integer> q = new LinkedList<>();
-        q.add(D);
+        ArrayDeque<Integer> que = new ArrayDeque<>();
+        que.add(D);
 
-        while(!q.isEmpty()){
-            int now = q.poll();
+        while(!que.isEmpty()){
+            int now = que.poll();
 
-            for(int i=0; i<N; i++){
+            for (int i = 0; i < N; i++) {
                 if(list[i][now] == 0){
                     continue;
                 }
 
-                if(distance[now] == distance[i]+list[i][now]){
+                if(distance[now] == distance[i] + list[i][now]){
                     list[i][now] = 0;
-                    q.add(i);
+                    que.add(i);
                 }
             }
         }
     }
 
-    static void dijkstra() {
-        PriorityQueue<Point> pq = new PriorityQueue<Point>();
+    static void dijkstra(){
+        PriorityQueue<Point> que = new PriorityQueue<Point>();
+        que.add(new Point(S, 0));
 
-        pq.add(new Point(S, 0));
-        ArrayList<Integer> temp;
-        while(!pq.isEmpty()){
-            Point now = pq.poll();
+        while(!que.isEmpty()){
+            Point now = que.poll();
+            //이 코드를 위해서
+            //que.add(new Point(i, distance[i]));
+//          //이걸하는 거다
             if(now.cost > distance[now.node]){
-                 continue;
+                continue;
             }
 
-            for(int i=0; i<N; i++){
+            for (int i = 0; i <N ; i++) {
                 if(list[now.node][i] == 0){
                     continue;
                 }
 
                 if(distance[i] > distance[now.node] + list[now.node][i]){
                     distance[i] = distance[now.node] + list[now.node][i];
-                    pq.add(new Point(i, distance[i]));
+
+                    que.add(new Point(i, distance[i]));
                 }
             }
-
         }
     }
 
+
     static class Point implements Comparable<Point>{
-        int node, cost;
+        int node;
+        int cost;
+
         Point(int node, int cost){
             this.node = node;
             this.cost = cost;
         }
 
         public int compareTo(Point o){
-            return this.cost - o.cost;
+            return Integer.compare(this.cost, o.cost);
         }
     }
+
 }
