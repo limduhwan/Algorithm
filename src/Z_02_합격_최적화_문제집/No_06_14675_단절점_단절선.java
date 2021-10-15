@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 //단절점과 단절선 찾기
 //정점의 간선 개수가 2개 이상이면 단절점
 //트리에서 모든 간선은 단절선
-public class No_06_14675 {
+public class No_06_14675_단절점_단절선 {
     static int[][] tree;
     static int N, Q;
     static int[] indegree, outdegree;
