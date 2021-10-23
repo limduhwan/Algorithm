@@ -1,10 +1,8 @@
 package B02_화_SegmentTree;
 
-import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.*;
 

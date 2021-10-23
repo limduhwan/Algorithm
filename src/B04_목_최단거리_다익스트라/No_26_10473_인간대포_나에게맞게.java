@@ -1,9 +1,6 @@
 package B04_목_최단거리_다익스트라;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 //25.0 100.0 -> 출발지 x, y
 //190.0 57.5 -> 목적지 x, y

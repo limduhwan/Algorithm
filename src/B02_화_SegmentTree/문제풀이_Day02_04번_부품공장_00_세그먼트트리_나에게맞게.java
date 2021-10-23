@@ -1,6 +1,5 @@
 package B02_화_SegmentTree;
 
-import javax.swing.plaf.synth.SynthTableHeaderUI;
 import java.io.*;
 import java.util.ArrayDeque;
 import java.util.Arrays;

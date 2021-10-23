@@ -3,8 +3,6 @@ package B02_화_SegmentTree;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.StringTokenizer;
 
 //가장 긴 증가하는 부분 수열 2
 //시간 제한	메모리 제한	제출	정답	맞은 사람	정답 비율

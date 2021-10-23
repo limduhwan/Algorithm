@@ -3,7 +3,6 @@ package B02_화_SegmentTree;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 //[2일차] [SW검정] Professional 중급 과정 (4/6)

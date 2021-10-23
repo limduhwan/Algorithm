@@ -2,7 +2,6 @@ package B01_월_LCA;
 
 import java.io.*;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 //정점들의 거리
