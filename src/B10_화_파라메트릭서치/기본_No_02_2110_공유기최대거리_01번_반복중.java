@@ -36,9 +36,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.StringTokenizer;
-//https://youngest-programming.tistory.com/426
 
-public class 기본_No_02_2110_공유기최대거리 {
+//https://youngest-programming.tistory.com/426
+public class 기본_No_02_2110_공유기최대거리_01번_반복중 {
     static int N, C;
     static int[] position;
     public static void main(String[] args) throws IOException{
@@ -49,9 +49,11 @@ public class 기본_No_02_2110_공유기최대거리 {
         N = Integer.parseInt(st.nextToken());
         C = Integer.parseInt(st.nextToken());
 
-        position = new int[N];
-        for(int i=0; i<N; i++){
+        position = new int[N+1];
+
+        for (int i = 1; i <=N ; i++) {
             st = new StringTokenizer(br.readLine());
+
             position[i] = Integer.parseInt(st.nextToken());
         }
 
@@ -61,33 +63,35 @@ public class 기본_No_02_2110_공유기최대거리 {
         int ub = 1000000000;
         int mid = 0;
 
-        while(lb+1 < ub){
-            mid = lb+(ub-lb)/2;
+        while(lb+1<ub){
+            mid = lb + (ub-lb)/2;
+
             if(exam(mid)){
                 lb = mid;
             }else{
                 ub = mid;
             }
         }
-
         System.out.println(lb);
     }
 
     static boolean exam(int mid_size){
-        int cnt=1;
-        int prev = position[0];
+        //일단 먼저 구현하고 lb를 끌어올릴지 말지 고민해 보자
 
-        for(int i=1; i<N; i++){
-            if(position[i] - prev >= mid_size){
-                prev = position[i];
-                cnt++;
+        int count = 1;
+        int prevHome = 1;
+        for (int i = 2; i < position.length ; i++) {
+            if(position[i] - position[prevHome] >= mid_size){
+                count++;
+                prevHome = i;
             }
         }
-//        ub를 언제 줄여야 할지를 생각해 보자
-        if(cnt>=C){
+
+        if(count >= C){
             return true;
         }else{
             return false;
         }
     }
+
 }
