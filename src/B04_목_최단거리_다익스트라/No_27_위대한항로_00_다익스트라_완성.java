@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class 문제풀이_Day01_01번_위대한항로_00_다익스트라_완성 {
+public class No_27_위대한항로_00_다익스트라_완성 {
 
     static class Node implements Comparable<Node>{
         int dest;

@@ -40,7 +40,7 @@ import java.util.StringTokenizer;
 //#3 4
 
 
-public class No_01_인터스텔라_다익스트라_강사님 {
+public class No_11_인터스텔라_다익스트라_강사님 {
     static int T, N, M, K;
     static Vertex adj[];
     static long price[][] = new long[100001][3];        // 비용 배열

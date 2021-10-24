@@ -70,7 +70,7 @@ import java.util.StringTokenizer;
 //#3 IMPOSSIBLE
 
 
-public class No_02_스크롤게임_다익스트라_강사님 {
+public class No_10_스크롤게임_다익스트라_강사님 {
 
     private static class Node {
         int y;

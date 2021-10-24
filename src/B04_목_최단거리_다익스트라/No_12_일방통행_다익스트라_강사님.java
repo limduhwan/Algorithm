@@ -41,7 +41,7 @@ import java.util.StringTokenizer;
 //#2 20
 //#3 17
 
-public class No_03_일방통행_다익스트라_강사님 {
+public class No_12_일방통행_다익스트라_강사님 {
     static int N, M;
     static char color[];
     static long dist[][];

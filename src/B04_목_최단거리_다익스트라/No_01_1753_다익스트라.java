@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class No_24_1753_다익스트라 {
+public class No_01_1753_다익스트라 {
     static int V, E, startPoint;
     static ArrayList<Node>[] al;
     static int[] di;

@@ -77,7 +77,7 @@ import java.util.*;
 //6
 //https://rlaguswhd-organize.tistory.com/15
 //다익스트라해주고 최단경로를 지워주고 다시 다익스트라
-public class 기본_No_26_5719_거의최단경로_나에게맞게 {
+public class No_04_5719_최단경로_다음경로_나에게맞게 {
     static int N, M, S,D;
     static int[] distance;
     static int[][] list;

@@ -40,7 +40,7 @@ import java.util.StringTokenizer;
 //#3 4
 
 
-public class No_01_인터스텔라_다익스트라_나에게맞게 {
+public class No_11_인터스텔라_다익스트라_나에게맞게 {
 
     static int T, N, M, K;
     static Vertex adj[];

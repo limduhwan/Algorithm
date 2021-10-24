@@ -53,7 +53,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 // 3176 도로 네트워크
-public class 기본_No_07_3176_도로네트워크 {
+public class 기본_No_07_3176_도로네트워크_프로수준 {
 
     static int N, K, M, min, max;
     static int[] depth;

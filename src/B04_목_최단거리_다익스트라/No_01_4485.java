@@ -7,7 +7,7 @@ import java.util.StringTokenizer;
 //https://www.acmicpc.net/problem/4485
 //아래 블로그 클리어하다!
 //https://machine-geon.tistory.com/121
-public class No_02_4485 {
+public class No_01_4485 {
 
     static int N; //맵 크기
     static int[][] map;
