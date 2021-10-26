@@ -1,8 +1,0 @@
-https://www.acmicpc.net/problemset?sort=ac_desc&algo=22
-
-//이 코드를 위해서
-//que.add(new Point(i, distance[i]));
-//이걸하는 거다
-if(now.cost > distance[now.node]){
-    continue;
-}
