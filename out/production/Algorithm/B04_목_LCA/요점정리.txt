@@ -1,0 +1,29 @@
+[기본설명]
+[6일차] [SW검정] Professional 중급 과정 (4/8) 25:45
+[6일차] [SW검정] Professional 중급 과정 (5/8) 12:59
+
+[문제집]
+https://www.acmicpc.net/problemset?sort=ac_desc&algo=41
+
+int temp = 1;
+K = 0;
+while (temp <=N ) {
+    temp<<=1;
+    K++;
+}
+
+Kdf l
+//1. K구하기
+//2. dfs
+//3. fillparent
+
+//4. lca
+
+temp<<=1;
+ if(depth[y] - depth[x] >= (1<<i)){
+ }
+
+[비트연산]
+https://coding-factory.tistory.com/521
+
+
