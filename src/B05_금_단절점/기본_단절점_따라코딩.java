@@ -1,9 +1,8 @@
-package B03_수_단절점;
+package B05_금_단절점;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -30,10 +29,9 @@ import java.util.StringTokenizer;
 7 8
 7 9
 8 9
-
  */
 
-public class No_01_기본_나에게맞춤 {
+public class 기본_단절점_따라코딩 {
 
     static ArrayList<Integer>[] adjList;
     static int[] order;
@@ -43,12 +41,14 @@ public class No_01_기본_나에게맞춤 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("No_단절점.txt"));
         StringTokenizer st;
+
         int T = Integer.parseInt(br.readLine());
 
-        for (int tc = 1; tc <= T; tc++) {
+        for (int tc = 1; tc <= T ; tc++) {
             st = new StringTokenizer(br.readLine());
-            int V = Integer.parseInt(st.nextToken()); // 정점 수
-            int E = Integer.parseInt(st.nextToken()); // 간선 수
+
+            int V = Integer.parseInt(st.nextToken());
+            int E = Integer.parseInt(st.nextToken());
 
             adjList = new ArrayList[V+1];
             order = new int[V+1];
@@ -58,8 +58,9 @@ public class No_01_기본_나에게맞춤 {
                 adjList[i] = new ArrayList<>();
             }
 
-            for (int i = 0; i < E; i++) {
+            for (int i = 0; i <E ; i++) {
                 st = new StringTokenizer(br.readLine());
+
                 int from = Integer.parseInt(st.nextToken());
                 int to = Integer.parseInt(st.nextToken());
 
@@ -69,7 +70,7 @@ public class No_01_기본_나에게맞춤 {
 
             number = 1;
 
-            for (int i = 1; i <=V; i++) {
+            for (int i = 1; i <=V ; i++) {
                 if(order[i] == 0){
                     dfs(i, true);
                 }
@@ -79,11 +80,17 @@ public class No_01_기본_나에게맞춤 {
             for (int i = 1; i <=V ; i++) {
                 if(isCut[i]){
                     cnt++;
-                    System.out.println(i+" ");
+                    System.out.println(i + " ");
                 }
             }
-            System.out.println("count : "+cnt);
+
+            System.out.println(cnt);
+
+
+
         }
+
+
     }
 
     static int dfs(int here, boolean isRoot){
@@ -100,16 +107,21 @@ public class No_01_기본_나에게맞춤 {
             }
 
             child++;
-            int min = dfs(next, false);
 
+            int min = dfs(next, false);
+            //**여기가 핵심
+            //정점 A가 시작 정점이 아닐 때만
+            //A번 정점에서 자식 노드들이 정점 A를 거치지 않고
+            //A번 보다 빠른 방문번호를 가진 정점으로 갈 수 없다면 단절점이다.
             if(!isRoot && order[here] <= min){
                 isCut[here] = true;
             }
 
             low = Math.min(low, min);
-
         }
 
+        //정점 A가 시작 정점(Root)일 때
+        //자식 수가 2개 이상이면 단절점이다.
         if(isRoot){
             isCut[here] = (child >=2);
         }
@@ -118,3 +130,18 @@ public class No_01_기본_나에게맞춤 {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

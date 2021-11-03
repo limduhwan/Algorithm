@@ -1,9 +1,6 @@
-package B03_수_단절점;
+package B05_금_단절점;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -30,10 +27,9 @@ import java.util.StringTokenizer;
 7 8
 7 9
 8 9
-
  */
 
-public class No_01_기본_강사님 {
+public class 기본_단절점_강사님 {
 
     private static ArrayList<Integer>[] adjList;
     private static int[] order;
@@ -42,7 +38,6 @@ public class No_01_기본_강사님 {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("No_단절점.txt"));
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         int T = Integer.parseInt(br.readLine());
 
@@ -51,9 +46,9 @@ public class No_01_기본_강사님 {
             int V = Integer.parseInt(st.nextToken()); // 정점 수
             int E = Integer.parseInt(st.nextToken()); // 간선 수
 
-            adjList = new ArrayList[V + 1];
-            order = new int[V + 1];
-            isCut = new boolean[V + 1];
+            adjList = new ArrayList[V+1];
+            order = new int[V+1];
+            isCut = new boolean[V+1];
 
             for (int i = 1; i <= V; i++) {
                 adjList[i] = new ArrayList();
@@ -84,15 +79,14 @@ public class No_01_기본_강사님 {
                 }
             }
             System.out.println("count : " + cnt);
-
         }
     }
 
-    // 단절점 탐색 : 깊이 우선 탐색
+    // 단절점 탐색
     private static int dfs(int here, boolean isRoot) {
         order[here] = number++; // DFS 탐색 순서 저장
         int low = order[here]; // low 의 초기값은 자기 자신의 order
-        int child = 0; // 자식 Tree 수 count
+        int child = 0; // 자식 수 count
 
         for (int next : adjList[here]) {
             /*
@@ -116,7 +110,6 @@ public class No_01_기본_강사님 {
             if (!isRoot && order[here] <= min) {
                 isCut[here] = true;
             }
-
             low = Math.min(low, min);
         }
 
@@ -124,11 +117,11 @@ public class No_01_기본_강사님 {
         정점 A가 시작 정점(root)일 때
         자식 수가 2개 이상이면 단절점이다.
         */
+
         if (isRoot) {
             isCut[here] = (child >= 2);
         }
 
         return low;
     }
-
 }
